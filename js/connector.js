@@ -67,7 +67,7 @@ function submitConnectorRegistration() {
 
   const p = {
     name, age, phone, email, languages, village, district, area, skills,
-    status: 'Active', registeredAt: new Date().toISOString(), avatar: 'https://i.pravatar.cc/100?img=12'
+    status: 'Active', registeredAt: new Date().toISOString(), avatar: 'assets/img/connector_ahmad_pratama.png'
   };
 
   saveConnectorProfile(p);

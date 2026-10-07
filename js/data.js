@@ -14,7 +14,7 @@ const experiences = [
     hostEmail: "baiq@lokallink.id",
     story:
       "Bau Nyale is our most sacred annual festival, rooted in the legend of Princess Mandalika who sacrificed herself into the sea to bring peace among warring princes. Every year around February or March, thousands gather at Seger Beach at dawn to catch the colorful Nyale sea worms — believed to be her reincarnation. Join us for traditional Presean stick fighting, Sasak poetry, and the magical moment when the Nyale appear from the coral reefs at first light.",
-    avatar: "https://i.pravatar.cc/120?img=47",
+    avatar: "assets/img/host_baiq_erwina.png",
   },
   {
     id: "desasade",
@@ -29,7 +29,7 @@ const experiences = [
     hostEmail: "host@lokallink.id",
     story:
       "Sade is a living museum of the Sasak people where around 700 residents preserve ancestral traditions untouched by modernization. Walk among the iconic Bale Tani houses with mountain-shaped thatched roofs made from alang-alang grass and woven bamboo walls. Watch our women demonstrate the art of Songket weaving — a skill every girl must master before marriage. Learn about our unique Merariq elopement tradition and the philosophy behind our communal way of life.",
-    avatar: "https://i.pravatar.cc/120?img=33",
+    avatar: "assets/img/host_rafi_maulana.png",
   },
   {
     id: "pantaiseger",
@@ -44,7 +44,7 @@ const experiences = [
     hostEmail: "fajar@lokallink.id",
     story:
       "Pantai Seger is where the legend of Princess Mandalika comes alive — the iconic statue of the princess stands near the shore where she leapt into the sea. This beach features pristine white sand with unique peppercorn-like texture, crystal-clear turquoise water, and dramatic green hills framing the coastline. It's also a world-class surfing spot with challenging waves, especially from July to August. Walk along the cliffs, discover the Mandalika Circuit views, and feel the mystical energy of this legendary shore.",
-    avatar: "https://i.pravatar.cc/120?img=11",
+    avatar: "assets/img/host_fajar_hadi.png",
   },
   {
     id: "desaende",
@@ -59,7 +59,7 @@ const experiences = [
     hostEmail: "nur@lokallink.id",
     story:
       "Desa Ende is a quieter, more intimate alternative to Sade — home to about 30 families who preserve authentic Sasak daily life. Experience our traditional Bale Tani houses with their low doorways designed so visitors must bow upon entering as a sign of respect. Watch Peresean martial arts with rattan sticks and buffalo-hide shields, listen to the rhythms of Gendang Beleq drums, and see our women weave intricate Songket fabrics. The floors of our homes are made from a mixture of clay and cow dung — a tradition that naturally repels insects and keeps homes cool.",
-    avatar: "https://i.pravatar.cc/120?img=32",
+    avatar: "assets/img/host_nur_aini.png",
   },
   {
     id: "bukitmerese",
@@ -74,7 +74,7 @@ const experiences = [
     hostEmail: "rizal@lokallink.id",
     story:
       "Bukit Merese is widely considered the best sunset viewpoint in all of Lombok. This grassy headland offers a breathtaking 360-degree panorama — Tanjung Aan's crescent white sands to the east, the surfing breaks of Seger and Serenting beaches to the west, and the vast Indian Ocean stretching to the south. The short 10-minute hike through rolling emerald-green hills — where local cattle and buffalo graze — leads to an unforgettable golden hour as the sky transforms into vivid hues of orange, pink, and red.",
-    avatar: "https://i.pravatar.cc/120?img=68",
+    avatar: "assets/img/host_rizal_akbar.png",
   },
   {
     id: "kutamandalika",
@@ -89,7 +89,7 @@ const experiences = [
     hostEmail: "dimas@lokallink.id",
     story:
       "Kuta Mandalika was once a quiet fishing village, now the heart of Lombok's premier coastal tourism zone. Famous for its distinctive 'pepper sand' — creamy-brown, round grains that feel unique underfoot — this long stretch of coastline is framed by lush green rugged hills and turquoise waters. Experience world-class surfing at nearby Gerupuk and Tanjung Aan breaks, visit the Mandalika International Circuit that hosts MotoGP, explore traditional Sasak villages nearby, and soak in the laid-back, serene atmosphere that defines South Lombok.",
-    avatar: "https://i.pravatar.cc/120?img=14",
+    avatar: "assets/img/host_dimas_pratama.png",
   },
   {
     id: "nyongkolan",
@@ -104,7 +104,7 @@ const experiences = [
     hostEmail: "ayu@lokallink.id",
     story:
       "Nyongkolan is the grand wedding procession of the Sasak people — a vibrant public celebration where the newlywed couple is paraded from the groom's home to the bride's family. The couple is treated like royalty (Datu and Putri), walking under ceremonial umbrellas while accompanied by the thunderous rhythm of Gendang Beleq large drums. Participants wear traditional Sasak clothing — women in Lambung kebaya with Songket sarongs, men in Tegodek jackets with Sapuk headpieces. It's a powerful symbol of unity that strengthens bonds between families and communities.",
-    avatar: "https://i.pravatar.cc/120?img=47",
+    avatar: "assets/img/host_ayu_lestari.png",
   },
   {
     id: "bukitseger",
@@ -119,7 +119,7 @@ const experiences = [
     hostEmail: "ahmad@lokallink.id",
     story:
       "Bukit Seger is the sacred hilltop where Princess Mandalika delivered her final message before sacrificing herself into the sea. This site offers stunning 360-degree panoramas of the ocean, white-sand beaches, and green rolling hills. From the top, you can also see the iconic turns of the Pertamina Mandalika International Street Circuit. Visit the statue of Princess Mandalika at nearby Pantai Seger, learn about the ancient legend that inspired the annual Bau Nyale tradition, and connect with the deep spiritual significance this place holds for the Sasak people.",
-    avatar: "https://i.pravatar.cc/120?img=12",
+    avatar: "assets/img/connector_ahmad_pratama.png",
   },
 ];
 
@@ -140,12 +140,12 @@ let currentUser = {
   host: {
     name: "Rafi Maulana",
     email: "host@lokallink.id",
-    avatar: "https://i.pravatar.cc/100?img=33",
+    avatar: "assets/img/host_rafi_maulana.png",
   },
   connector: {
     name: "Ahmad Pratama",
     email: "connector@lokallink.id",
-    avatar: "https://i.pravatar.cc/100?img=12",
+    avatar: "assets/img/connector_ahmad_pratama.png",
   },
 };
 
@@ -306,7 +306,7 @@ const bookingSeed = [
     status: "Pending",
     hostName: "Baiq Erwina",
     hostEmail: "baiq@lokallink.id",
-    hostAvatar: "https://i.pravatar.cc/100?img=47",
+    hostAvatar: "assets/img/host_baiq_erwina.png",
     category: "Culture",
     location: "Pantai Seger, Kuta Lombok",
     duration: "4 hours",
@@ -325,7 +325,7 @@ const bookingSeed = [
     status: "Confirmed",
     hostName: "Rafi Maulana",
     hostEmail: "host@lokallink.id",
-    hostAvatar: "https://i.pravatar.cc/100?img=33",
+    hostAvatar: "assets/img/host_rafi_maulana.png",
     category: "Culture",
     location: "Desa Sade, Rembitan, Lombok Tengah",
     duration: "2.5 hours",
@@ -344,7 +344,7 @@ const bookingSeed = [
     status: "Pending",
     hostName: "Rizal Akbar",
     hostEmail: "rizal@lokallink.id",
-    hostAvatar: "https://i.pravatar.cc/100?img=68",
+    hostAvatar: "assets/img/host_rizal_akbar.png",
     category: "Nature",
     location: "Bukit Merese, Mandalika",
     duration: "2.5 hours",

@@ -104,7 +104,7 @@ function confirmBooking() {
   const hostInfo = {
     hostName: currentExperience.host || 'Local Host',
     hostEmail: currentExperience.hostEmail || 'host@lokallink.id',
-    hostAvatar: currentExperience.avatar || 'https://i.pravatar.cc/100?img=33'
+    hostAvatar: currentExperience.avatar || 'assets/img/host_rafi_maulana.png'
   };
 
   const data = getBookingRecords();

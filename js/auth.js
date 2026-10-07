@@ -127,7 +127,7 @@ function logoutUser() {
   if (splash) splash.style.display = 'none';
 
   selectAuthRole('traveler');
-  showToast('You have been logged out.');
+  showToast('Success.');
 }
 
 function switchRole() {

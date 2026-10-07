@@ -1,0 +1,247 @@
+/* =====================================================
+   LOADING SCREEN — Animated Logo Overlay
+   ===================================================== */
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: linear-gradient(
+    160deg,
+    #1a1512 0%,
+    #2c2218 35%,
+    #3d2b1a 65%,
+    #1a1512 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  animation: loadingAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.loading-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.loading-logo {
+  width: 56px !important;
+  height: 56px !important;
+  object-fit: contain;
+  animation: logoPulse 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 4px 24px rgba(179, 65, 21, 0.35));
+}
+
+.loading-brand {
+  font-family: 'Raleway', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.03em;
+  animation: brandSlideIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.loading-tagline {
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  animation: taglineIn 0.7s ease 0.5s both;
+}
+
+.loading-bar {
+  width: 120px;
+  height: 3px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  margin-top: 8px;
+  animation: taglineIn 0.5s ease 0.6s both;
+}
+
+.loading-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #B34115, #e86830, #B34115);
+  background-size: 200% 100%;
+  width: 0%;
+  animation: barFill 4.2s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards,
+    barShimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes loadingAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes logoPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes brandSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes taglineIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes barFill {
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes barShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* =====================================================
+   MOBILE LOGIN BACKGROUND — Tourism Background Image
+   ===================================================== */
+
+@media (max-width: 640px) {
+  #authGate {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(26, 21, 18, 0.15) 0%,
+        rgba(26, 21, 18, 0.05) 25%,
+        rgba(26, 21, 18, 0.20) 55%,
+        rgba(26, 21, 18, 0.85) 100%
+      ),
+      url('../assets/img/loginpage.jpg') center/cover no-repeat !important;
+    padding: 20px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .auth-layout {
+    position: relative;
+    z-index: 2;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .auth-brand-copy {
+    display: none !important;
+  }
+
+  .auth-card {
+    background: rgba(255, 255, 255, 0.93) !important;
+    backdrop-filter: blur(20px) saturate(1.8);
+    -webkit-backdrop-filter: blur(20px) saturate(1.8);
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 24px !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 28px 22px 32px !important;
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(255, 255, 255, 0.06) inset !important;
+    overflow-y: visible !important;
+  }
+
+  .auth-card h2 {
+    color: #1a1512;
+    font-size: 26px;
+  }
+
+  .auth-card .sub {
+    color: #5a534d;
+  }
+
+  .auth-tabs {
+    background: rgba(244, 240, 236, 0.85) !important;
+    backdrop-filter: blur(8px);
+  }
+
+  .auth-field input {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border-color: rgba(236, 231, 225, 0.7) !important;
+  }
+
+  .auth-note {
+    color: rgba(154, 147, 140, 0.9);
+  }
+
+  .connector-signup-link {
+    position: relative;
+    z-index: 2;
+  }
+
+  .connector-signup-link span {
+    color: #665F59;
+  }
+}
+
+/* Small phones: more compact card padding */
+@media (max-width: 380px) {
+  .auth-card {
+    padding: 22px 18px 26px !important;
+  }
+
+  .auth-card h2 {
+    font-size: 23px;
+  }
+
+  .loading-logo {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .loading-brand {
+    font-size: 28px;
+  }
+}

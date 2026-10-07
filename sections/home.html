@@ -1,0 +1,64 @@
+<!-- HOME SECTION -->
+<main id="home" class="screen active">
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/logo.png" alt="LokaLink Logo" class="logo-img" style="height:32px">
+      LokaLink
+    </div>
+    <button class="icon-btn" onclick="showToast('Notifications are ready for the MVP.')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/>
+        <path d="M10 21h4"/>
+      </svg>
+    </button>
+  </header>
+
+  <div class="greeting">
+    <h1>Good Morning, Alex 👋</h1>
+    <p>Find experiences in KEK Mandalika</p>
+  </div>
+
+  <label class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path>
+    </svg>
+    <input id="homeSearch" type="search" placeholder="Search local experiences..." oninput="filterHome()">
+  </label>
+
+  <div class="section" style="margin-top:18px">
+    <div class="chips" id="homeChips">
+      <button class="chip active" data-cat="All" onclick="setCategory('All')">All</button>
+      <button class="chip" data-cat="Culture" onclick="setCategory('Culture')">Culture</button>
+      <button class="chip" data-cat="Nature" onclick="setCategory('Nature')">Nature</button>
+      <button class="chip" data-cat="Food" onclick="setCategory('Food')">Food</button>
+      <button class="chip" data-cat="Community" onclick="setCategory('Community')">Community</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head" style="padding:0 18px">
+      <h2 class="section-title">Featured Experience</h2>
+      <button class="see-all" onclick="goTo('discover')">Explore</button>
+    </div>
+
+    <article class="featured" onclick="openDetail('fullmoon')">
+      <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85" alt="Village landscape">
+      <div class="featured-content">
+        <span class="pill">✦ Community Pick</span>
+        <h2>Full Moon Festival at Sade Village</h2>
+        <div class="featured-row">
+          <span class="featured-meta">Culture · Sade Village · ★ 4.9</span>
+          <button class="btn btn-primary" onclick="event.stopPropagation(); openBooking('Full Moon Festival at Sade Village',460000)">Book Now</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="section">
+    <div class="section-head" style="padding:0 18px">
+      <h2 class="section-title">Trending Experiences</h2>
+      <button class="see-all" onclick="goTo('discover')">See all</button>
+    </div>
+    <div id="trendingList" class="experience-list" style="padding:0 18px"></div>
+  </div>
+</main>

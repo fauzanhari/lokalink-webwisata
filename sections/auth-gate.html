@@ -1,0 +1,64 @@
+<!-- LOGIN GATE SECTION -->
+<section id="authGate">
+  <div class="auth-layout">
+    <div class="auth-brand-copy">
+      <div class="auth-logo">
+        <img src="assets/logo.png" alt="LokaLink Logo" class="logo-img" style="height:44px">
+        LokaLink
+      </div>
+      <h1>Travel closer.<br>Connect locally.</h1>
+      <p>
+        Discover authentic experiences around Lombok while connecting travelers
+        with the people, stories, and communities behind each place.
+      </p>
+      <div class="auth-points">
+        <span class="auth-point">Local Experiences</span>
+        <span class="auth-point">Small Groups</span>
+        <span class="auth-point">Community Impact</span>
+      </div>
+    </div>
+
+    <div class="auth-card">
+      <div class="role-badge">● SECURE DEMO ACCESS</div>
+      <h2 style="margin-top:12px">Welcome to LokaLink</h2>
+      <p class="sub">Choose how you use LokaLink, then sign in to continue.</p>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="travelerTab" onclick="selectAuthRole('traveler')">Traveler</button>
+        <button class="auth-tab" id="hostTab" onclick="selectAuthRole('host')">Local Host</button>
+        <button class="auth-tab" id="connectorTab" onclick="selectAuthRole('connector')">Connector</button>
+      </div>
+      <div class="connector-signup-link">
+        <span>Are you a local youth?</span>
+        <button type="button" onclick="openConnectorRegistration()">Become a Local Connector</button>
+      </div>
+
+      <div class="auth-field">
+        <label>EMAIL</label>
+        <input id="loginEmail" type="email" value="alex@lokallink.id" placeholder="you@example.com">
+      </div>
+
+      <div class="auth-field">
+        <label>PASSWORD</label>
+        <input id="loginPassword" type="password" value="12345678" placeholder="••••••••">
+      </div>
+
+      <button class="btn btn-primary auth-submit" onclick="loginUser()">
+        Continue as <span id="loginRoleLabel">Traveler</span>
+      </button>
+
+      <div class="demo-login">
+        <p>Demo accounts untuk presentasi:</p>
+        <div class="demo-buttons">
+          <button class="demo-btn" onclick="fillDemo('traveler')">Traveler Demo</button>
+          <button class="demo-btn" onclick="fillDemo('host')">Host Demo</button>
+          <button class="demo-btn" onclick="fillConnectorDemo()">Connector Demo</button>
+        </div>
+      </div>
+
+      <p class="auth-note">
+        Front-end prototype: autentikasi disimulasikan dengan localStorage.
+      </p>
+    </div>
+  </div>
+</section>

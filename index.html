@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#FAF8F5" />
+    <title>LokaLink — Discover Real Lombok</title>
+
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet" />
+    <!-- Modular CSS Stylesheets -->
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/screens.css" />
+    <link rel="stylesheet" href="css/host.css" />
+    <link rel="stylesheet" href="css/modals.css" />
+    <link rel="stylesheet" href="css/connector.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/loading.css" />
+  </head>
+  <body>
+    <!-- LOADING SCREEN OVERLAY -->
+    <div id="loadingScreen" class="loading-screen">
+      <div class="loading-inner">
+        <div class="loading-logo-wrap">
+          <img
+            src="assets/logo.png"
+            alt="LokaLink Logo"
+            class="loading-logo" />
+          <span class="loading-brand">LokaLink</span>
+        </div>
+        <p class="loading-tagline">Discover Real Lombok.</p>
+        <div class="loading-bar">
+          <div class="loading-bar-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGIN GATE: Auth & Role Selection -->
+    <section id="authGate">
+      <div class="auth-layout">
+        <div class="auth-brand-copy">
+          <div class="auth-logo">
+            <img
+              src="assets/logo.png"
+              alt="LokaLink Logo"
+              class="logo-img"
+              style="height: 44px" />
+            LokaLink
+          </div>
+          <h1>Travel closer.<br />Connect locally.</h1>
+          <p>
+            Discover authentic experiences around Lombok while connecting
+            travelers with the people, stories, and communities behind each
+            place.
+          </p>
+          <div class="auth-points">
+            <span class="auth-point">Local Experiences</span>
+            <span class="auth-point">Small Groups</span>
+            <span class="auth-point">Community Impact</span>
+          </div>
+        </div>
+
+        <div class="auth-card">
+          <h2 style="margin-top: 12px">Welcome to LokaLink</h2>
+          <p class="sub">
+            Choose how you use LokaLink, then sign in to continue.
+          </p>
+
+          <div class="auth-tabs">
+            <button
+              class="auth-tab active"
+              id="travelerTab"
+              onclick="selectAuthRole('traveler')">
+              Traveler
+            </button>
+            <button
+              class="auth-tab"
+              id="hostTab"
+              onclick="selectAuthRole('host')">
+              Local Host
+            </button>
+            <button
+              class="auth-tab"
+              id="connectorTab"
+              onclick="selectAuthRole('connector')">
+              Connector
+            </button>
+          </div>
+          <div class="connector-signup-link">
+            <span>Are you a local youth?</span>
+            <button type="button" onclick="openConnectorRegistration()">
+              Become a Local Connector
+            </button>
+          </div>
+
+          <div class="auth-field">
+            <label>EMAIL</label>
+            <input
+              id="loginEmail"
+              type="email"
+              value="alex@lokallink.id"
+              placeholder="you@example.com" />
+          </div>
+
+          <div class="auth-field">
+            <label>PASSWORD</label>
+            <input
+              id="loginPassword"
+              type="password"
+              value="12345678"
+              placeholder="••••••••" />
+          </div>
+
+          <button class="btn btn-primary auth-submit" onclick="loginUser()">
+            Continue as <span id="loginRoleLabel">Traveler</span>
+          </button>
+
+          <p class="auth-note">
+            langsung klik button di atas untuk mencoba simulasi
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN APP SHELL -->
+    <div class="app-shell" id="appShell">
+      <!-- DESKTOP HEADER -->
+      <header class="desktop-header" id="desktopHeader">
+        <div class="desktop-header-inner">
+          <div class="desktop-brand">
+            <img
+              src="assets/logo.png"
+              alt="LokaLink Logo"
+              class="logo-img"
+              style="height: 36px" />
+            LokaLink
+          </div>
+          <nav class="desktop-links" id="desktopLinks"></nav>
+          <button class="desktop-role-switch" onclick="switchRole()">
+            Switch Role
+          </button>
+          <div class="desktop-account">
+            <img
+              id="desktopAvatar"
+              src="https://i.pravatar.cc/100?img=12"
+              alt="User" />
+            <div>
+              <strong id="desktopName">Alex Morgan</strong>
+              <span id="desktopRole">Traveler</span>
+            </div>
+          </div>
+          <button class="desktop-logout" onclick="logoutUser()">Logout</button>
+        </div>
+      </header>
+
+      <!-- SPLASH SCREEN -->
+      <section id="splash" aria-label="LokaLink welcome">
+        <div class="splash-logo">
+          <img
+            src="assets/logo.png"
+            alt="LokaLink Logo"
+            class="logo-img"
+            style="height: 36px" />
+          LokaLink
+        </div>
+        <div class="splash-copy">
+          <div class="eyebrow">Community • Culture • Lombok</div>
+          <h1 class="splash-title">Discover Real Lombok.</h1>
+          <p class="splash-sub">
+            Connect with real people, meaningful experiences, and local stories
+            around Mandalika.
+          </p>
+          <div class="splash-actions">
+            <button class="btn btn-primary" onclick="goTo('home')">
+              Explore LokaLink
+            </button>
+            <button class="btn btn-outline" onclick="openHost()">
+              Join as Local Host
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOME SCREEN -->
+      <main id="home" class="screen active">
+        <header class="topbar">
+          <div class="brand">
+            <img
+              src="assets/logo.png"
+              alt="LokaLink Logo"
+              class="logo-img"
+              style="height: 32px" />
+            LokaLink
+          </div>
+          <button
+            class="icon-btn"
+            onclick="showToast('Notifications are ready for the MVP.')">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
+              <path d="M10 21h4" />
+            </svg>
+          </button>
+        </header>
+
+        <div class="greeting">
+          <h1>Good Morning, Mr Fauzan</h1>
+          <p>Find experiences in KEK Mandalika</p>
+        </div>
+
+        <label class="search">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-4-4"></path>
+          </svg>
+          <input
+            id="homeSearch"
+            type="search"
+            placeholder="Search local experiences..."
+            oninput="filterHome()" />
+        </label>
+
+        <div class="section" style="margin-top: 18px">
+          <div class="chips" id="homeChips">
+            <button
+              class="chip active"
+              data-cat="All"
+              onclick="setCategory('All')">
+              All
+            </button>
+            <button
+              class="chip"
+              data-cat="Culture"
+              onclick="setCategory('Culture')">
+              Culture
+            </button>
+            <button
+              class="chip"
+              data-cat="Nature"
+              onclick="setCategory('Nature')">
+              Nature
+            </button>
+            <button class="chip" data-cat="Food" onclick="setCategory('Food')">
+              Food
+            </button>
+            <button
+              class="chip"
+              data-cat="Community"
+              onclick="setCategory('Community')">
+              Community
+            </button>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head" style="padding: 0 18px">
+            <h2 class="section-title">Featured Experience</h2>
+            <button class="see-all" onclick="goTo('discover')">Explore</button>
+          </div>
+
+          <article class="featured" onclick="openDetail('baunyale')">
+            <img src="assets/img/baunyale.jpg" alt="Bau Nyale Festival at Seger Beach" />
+            <div class="featured-content">
+              <h2>Bau Nyale Festival</h2>
+              <div class="featured-row">
+                <span class="featured-meta"
+                  >Culture · Pantai Seger, Kuta Lombok · ★ 4.9</span
+                >
+                <button
+                  class="btn btn-primary"
+                  onclick="event.stopPropagation(); openBooking('Bau Nyale Festival',460000)">
+                  Book Now
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="section">
+          <div class="section-head" style="padding: 0 18px">
+            <h2 class="section-title">Trending Experiences</h2>
+            <button class="see-all" onclick="goTo('discover')">See all</button>
+          </div>
+          <div
+            id="trendingList"
+            class="experience-list"
+            style="padding: 0 18px"></div>
+        </div>
+      </main>
+
+      <!-- DISCOVER SCREEN -->
+      <main id="discover" class="screen">
+        <div class="page-title">
+          <h1>Discover Local<br />Experiences</h1>
+          <p>
+            Explore culture, nature, food, and everyday life hosted by local
+            communities.
+          </p>
+        </div>
+
+        <div class="search" style="margin-top: 18px">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-4-4"></path>
+          </svg>
+          <input
+            id="discoverSearch"
+            type="search"
+            placeholder="What do you want to experience?"
+            oninput="renderDiscover()" />
+        </div>
+
+        <div class="chips" id="discoverChips" style="margin-top: 12px">
+          <button
+            class="chip active"
+            data-cat="All"
+            onclick="setDiscoverCategory('All')">
+            All
+          </button>
+          <button
+            class="chip"
+            data-cat="Culture"
+            onclick="setDiscoverCategory('Culture')">
+            Culture
+          </button>
+          <button
+            class="chip"
+            data-cat="Nature"
+            onclick="setDiscoverCategory('Nature')">
+            Nature
+          </button>
+          <button
+            class="chip"
+            data-cat="Food"
+            onclick="setDiscoverCategory('Food')">
+            Food
+          </button>
+          <button
+            class="chip"
+            data-cat="Community"
+            onclick="setDiscoverCategory('Community')">
+            Community
+          </button>
+        </div>
+
+        <div id="discoverGrid" class="discover-grid"></div>
+      </main>
+
+      <!-- BOOKINGS SCREEN -->
+      <main id="bookings" class="screen">
+        <div class="page-title">
+          <h1>My Bookings</h1>
+          <p>Your upcoming local experiences and confirmed trips.</p>
+        </div>
+        <div id="bookingList" class="booking-list"></div>
+      </main>
+
+      <!-- IMPACT SCREEN -->
+      <main id="impact" class="screen">
+        <div class="page-title">
+          <h1>Impact Tracking</h1>
+          <p>See how your travel contributes to local communities.</p>
+        </div>
+
+        <div class="impact-wrap">
+          <div class="impact-hero">
+            <p>Your direct local contribution</p>
+            <div class="impact-value" id="impactValue">Rp 1.380.000</div>
+            <small>estimated spending routed through local experiences</small>
+          </div>
+
+          <div class="impact-grid">
+            <div class="impact-stat">
+              <div class="ico">♡</div>
+              <strong id="impactHosts">3</strong>
+              <span>Local hosts supported</span>
+            </div>
+            <div class="impact-stat">
+              <div class="ico">⌂</div>
+              <strong id="impactTrips">3</strong>
+              <span>Experiences completed</span>
+            </div>
+            <div class="impact-stat">
+              <div class="ico">◎</div>
+              <strong>7</strong>
+              <span>Community activities</span>
+            </div>
+            <div class="impact-stat">
+              <div class="ico">✦</div>
+              <strong>12</strong>
+              <span>Local stories discovered</span>
+            </div>
+          </div>
+
+          <div class="impact-card">
+            <h3>Where your spending goes</h3>
+            <div class="progress-row">
+              <div class="progress-label">
+                <span>Local host</span><strong>70%</strong>
+              </div>
+              <div class="bar"><i style="width: 70%"></i></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-label">
+                <span>Local connector</span><strong>15%</strong>
+              </div>
+              <div class="bar"><i style="width: 15%"></i></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-label">
+                <span>Community activities</span><strong>15%</strong>
+              </div>
+              <div class="bar"><i style="width: 15%"></i></div>
+            </div>
+          </div>
+
+          <div class="impact-card">
+            <h3>Local stories</h3>
+            <p style="font-size: 11px; color: var(--muted); line-height: 1.65">
+              Every experience is connected to a local host and community.
+              LokaLink is designed to make the economic contribution visible
+              instead of treating local participation as an invisible part of
+              the trip.
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <!-- HOST DASHBOARD SCREEN -->
+      <main id="hostDashboard" class="screen">
+        <div class="dashboard-wrap">
+          <div class="welcome-row">
+            <div>
+              <div class="role-badge">LOCAL HOST · COMMUNITY</div>
+              <h1 style="margin-top: 10px">Good Morning, Rafi 👋</h1>
+              <p>Manage your experiences and connect with travelers.</p>
+            </div>
+            <button
+              class="icon-btn"
+              onclick="showToast('You have 3 new traveler updates.')">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
+                <path d="M10 21h4" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="host-stat-grid">
+            <div class="host-stat">
+              <span>This month</span><strong>Rp 8,46M</strong
+              ><small>+18.4% income</small>
+            </div>
+            <div class="host-stat">
+              <span>Bookings</span><strong>24</strong><small>5 upcoming</small>
+            </div>
+            <div class="host-stat">
+              <span>Rating</span><strong>4.9 ★</strong
+              ><small>128 reviews</small>
+            </div>
+            <div class="host-stat">
+              <span>Impact</span><strong>18</strong
+              ><small>local families</small>
+            </div>
+          </div>
+
+          <div class="host-dashboard-grid">
+            <div>
+              <div class="dashboard-card">
+                <div class="section-head" style="padding: 0; margin: 0">
+                  <h3 style="margin: 0">Upcoming Bookings</h3>
+                  <button class="see-all" onclick="hostViewAllBookings()">
+                    View all
+                  </button>
+                </div>
+
+                <div class="host-row">
+                  <img src="https://i.pravatar.cc/100?img=12" alt="Guest" />
+                  <div class="host-row-main">
+                    <strong>Alex Morgan · 2 guests</strong
+                    ><span>Bau Nyale Festival · 12 Oct · 06:00 PM</span>
+                  </div>
+                  <div class="host-row-price">Rp 920K</div>
+                </div>
+                <div class="host-row">
+                  <img src="https://i.pravatar.cc/100?img=32" alt="Guest" />
+                  <div class="host-row-main">
+                    <strong>Sarah Lee · 3 guests</strong
+                    ><span>Bukit Merese Sunset Hike · 14 Oct · 04:30 PM</span>
+                  </div>
+                  <div class="host-row-price">Rp 1,17M</div>
+                </div>
+                <div class="host-row">
+                  <img src="https://i.pravatar.cc/100?img=44" alt="Guest" />
+                  <div class="host-row-main">
+                    <strong>Daniel Tan · 2 guests</strong
+                    ><span>Desa Adat Sade Village Walk · 16 Oct · 09:00 AM</span>
+                  </div>
+                  <div class="host-row-price">Rp 640K</div>
+                </div>
+              </div>
+
+              <div class="dashboard-card">
+                <div class="section-head" style="padding: 0; margin: 0">
+                  <h3 style="margin: 0">Your Experiences</h3>
+                  <button class="see-all" onclick="hostManageExperiences()">
+                    Manage
+                  </button>
+                </div>
+                <div class="host-row">
+                  <img
+                    src="assets/img/baunyale.jpg"
+                    alt="Bau Nyale Festival" />
+                  <div class="host-row-main">
+                    <strong>Bau Nyale Festival</strong
+                    ><span>Published · Culture · ★ 4.9</span>
+                  </div>
+                  <div class="host-row-price">Rp 460K</div>
+                </div>
+                <div class="host-row">
+                  <img
+                    src="assets/img/desaadatsade.jpg"
+                    alt="Desa Adat Sade" />
+                  <div class="host-row-main">
+                    <strong>Desa Adat Sade Village Walk</strong
+                    ><span>Published · Culture · ★ 4.8</span>
+                  </div>
+                  <div class="host-row-price">Rp 320K</div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="dashboard-card">
+                <h3>Quick Actions</h3>
+                <div class="host-action-grid">
+                  <button class="action-tile" onclick="openExperienceForm()">
+                    <div class="tile-icon">＋</div>
+                    <strong>Add Experience</strong
+                    ><span>Create a new local activity.</span>
+                  </button>
+                  <button class="action-tile" onclick="hostViewAllBookings()">
+                    <div class="tile-icon">▣</div>
+                    <strong>Manage Bookings</strong
+                    ><span>Review dates and guests.</span>
+                  </button>
+                  <button class="action-tile" onclick="goTo('hostImpact')">
+                    <div class="tile-icon">Rp</div>
+                    <strong>Earnings</strong
+                    ><span>Track your local income.</span>
+                  </button>
+                  <button
+                    class="action-tile"
+                    onclick="showToast('Youth Connector workspace opened.')">
+                    <div class="tile-icon">↗</div>
+                    <strong>Youth Connector</strong
+                    ><span>Coordinate local tourism.</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="dashboard-card">
+                <h3>Community Impact</h3>
+                <p
+                  style="
+                    font-size: 11px;
+                    color: var(--muted);
+                    line-height: 1.7;
+                  ">
+                  Your experiences have generated direct spending for local
+                  households, small food businesses, craftspeople, and community
+                  activities.
+                </p>
+                <div class="progress-row">
+                  <div class="progress-label">
+                    <span>Local income routed</span><strong>84%</strong>
+                  </div>
+                  <div class="bar"><i style="width: 84%"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- HOST DYNAMIC SCREENS -->
+      <main id="hostExperiences" class="screen">
+        <div class="page-title">
+          <h1>My Experiences</h1>
+          <p>Create, edit, publish, and monitor your local experiences.</p>
+        </div>
+        <div class="dashboard-wrap">
+          <div class="dashboard-card">
+            <div class="section-head" style="padding: 0; margin: 0">
+              <h3 style="margin: 0">Published Experiences</h3>
+              <button
+                class="btn btn-primary"
+                style="min-height: 35px; font-size: 9px"
+                onclick="openExperienceForm()">
+                + Add Experience
+              </button>
+            </div>
+            <div class="host-row">
+              <img src="assets/img/baunyale.jpg" />
+              <div class="host-row-main">
+                <strong>Bau Nyale Festival</strong
+                ><span>Culture · 4.9 ★ · 128 reviews · Published</span>
+              </div>
+              <div class="host-row-price">Rp 460K</div>
+            </div>
+            <div class="host-row">
+              <img
+                src="assets/img/desaadatsade.jpg" />
+              <div class="host-row-main">
+                <strong>Desa Adat Sade Village Walk</strong
+                ><span>Culture · 4.8 ★ · 76 reviews · Published</span>
+              </div>
+              <div class="host-row-price">Rp 320K</div>
+            </div>
+            <div class="host-row">
+              <img
+                src="assets/img/desaadatende.jpg" />
+              <div class="host-row-main">
+                <strong>Desa Adat Ende Cultural Tour</strong
+                ><span>Community · 4.7 ★ · 54 reviews · Published</span>
+              </div>
+              <div class="host-row-price">Rp 280K</div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <main id="hostBookings" class="screen">
+        <div class="page-title">
+          <h1>Booking Management</h1>
+          <p>Review guests, schedules, status, and experience revenue.</p>
+        </div>
+        <div class="booking-list"></div>
+      </main>
+
+      <main id="hostImpact" class="screen">
+        <div class="page-title">
+          <h1>Host Impact</h1>
+          <p>
+            Track income and the local economic contribution generated by your
+            experiences.
+          </p>
+        </div>
+        <div class="impact-wrap">
+          <div class="impact-hero">
+            <p>Income routed to your community</p>
+            <div class="impact-value">Rp 8.460.000</div>
+            <small>This month · 24 confirmed bookings</small>
+          </div>
+          <div class="impact-stat">
+            <strong>18 families</strong
+            ><span>Local households indirectly supported</span>
+          </div>
+          <div class="impact-stat">
+            <strong>7</strong><span>Community activities funded</span>
+          </div>
+          <div class="impact-card">
+            <h3>Monthly activity</h3>
+            <div class="progress-row">
+              <div class="progress-label">
+                <span>Experience bookings</span><strong>84%</strong>
+              </div>
+              <div class="bar"><i style="width: 84%"></i></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-label">
+                <span>Community contribution</span><strong>70%</strong>
+              </div>
+              <div class="bar"><i style="width: 70%"></i></div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- YOUTH CONNECTOR DYNAMIC SCREENS -->
+      <main id="connectorDashboard" class="screen">
+        <div class="content">
+          <div class="page-title">
+            <h1>
+              Good morning, <span id="connectorDashName">Connector</span> 👋
+            </h1>
+            <p>
+              Connect travelers with local people and help community hosts join
+              LokaLink.
+            </p>
+          </div>
+          <div class="connector-stat-grid">
+            <div class="connector-stat">
+              <strong id="connectorReqCount">0</strong
+              ><span>Open requests</span>
+            </div>
+            <div class="connector-stat">
+              <strong id="connectorConnCount">0</strong><span>Connections</span>
+            </div>
+            <div class="connector-stat">
+              <strong id="connectorHostCount">0</strong
+              ><span>Hosts assisted</span>
+            </div>
+          </div>
+          <div class="section">
+            <div class="section-head">
+              <h2 class="section-title">Upcoming Connections</h2>
+              <button class="see-all" onclick="goTo('connectorConnections')">
+                See all
+              </button>
+            </div>
+            <div id="connectorUpcoming"></div>
+          </div>
+          <div class="section">
+            <div class="section-head">
+              <h2 class="section-title">Help Local Community</h2>
+            </div>
+            <div class="connector-card">
+              <div class="connector-card-top">
+                <div>
+                  <h3>Know a local person with a great experience?</h3>
+                  <p>
+                    Register them with their consent. They remain the owner of
+                    their Host profile while you help with the digital side.
+                  </p>
+                </div>
+                <span class="connector-status">Community</span>
+              </div>
+              <button
+                class="btn btn-primary"
+                style="margin-top: 12px"
+                onclick="openHostAssist()">
+                + Register Local Host
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+      <main id="connectorRequests" class="screen">
+        <div class="content">
+          <div class="page-title">
+            <h1>Connector Requests</h1>
+            <p>Review assistance requests from travelers.</p>
+          </div>
+          <div id="connectorRequestList"></div>
+        </div>
+      </main>
+      <main id="connectorConnections" class="screen">
+        <div class="content">
+          <div class="page-title">
+            <h1>My Connections</h1>
+            <p>Manage travelers you have agreed to assist.</p>
+          </div>
+          <div id="connectorConnectionList"></div>
+        </div>
+      </main>
+      <main id="connectorHosts" class="screen">
+        <div class="content">
+          <div class="page-title">
+            <h1>Assisted Local Hosts</h1>
+            <p>Community hosts you helped bring onto LokaLink.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openHostAssist()">
+            + Register Local Host
+          </button>
+          <div style="height: 12px"></div>
+          <div id="assistedHostList"></div>
+        </div>
+      </main>
+      <main id="connectorImpact" class="screen">
+        <div class="content">
+          <div class="page-title">
+            <h1>Connector Impact</h1>
+            <p>
+              See how your connections support travelers and local communities.
+            </p>
+          </div>
+          <div class="connector-stat-grid">
+            <div class="connector-stat">
+              <strong id="impactConnections">0</strong
+              ><span>Travelers connected</span>
+            </div>
+            <div class="connector-stat">
+              <strong id="impactHosts">0</strong
+              ><span>Local hosts assisted</span>
+            </div>
+            <div class="connector-stat">
+              <strong id="impactExperiences">0</strong
+              ><span>Experiences supported</span>
+            </div>
+          </div>
+          <div class="connector-card">
+            <h3>Why your role matters</h3>
+            <p>
+              You help local people participate in the digital tourism economy
+              without requiring them to manage every technology step themselves.
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <!-- PROFILE SCREEN -->
+      <main id="profile" class="screen"></main>
+
+      <!-- SAVED EXPERIENCES SCREEN -->
+      <main id="saved" class="screen">
+        <div class="page-title">
+          <h1>Saved Experiences</h1>
+          <p>Your collection of experiences you want to revisit.</p>
+        </div>
+        <div id="savedGrid" class="saved-grid"></div>
+      </main>
+
+      <!-- DETAIL VIEW -->
+      <section id="detail" class="screen" style="display: none">
+        <div class="detail-hero">
+          <img id="detailImage" alt="Experience" />
+          <button
+            class="floating back-btn"
+            onclick="closeDetail()"
+            aria-label="Back">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2">
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            class="floating share-btn"
+            onclick="showToast('Share link copied.')">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8">
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <path d="m8.7 10.7 6.6-3.4M8.7 13.3l6.6 3.4" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="detail-body">
+          <div class="detail-badge" id="detailCategory">
+            CULTURE · SADE VILLAGE
+          </div>
+          <h1 class="detail-title" id="detailTitle">Bau Nyale Festival</h1>
+          <div class="detail-meta">
+            <span>★ <strong id="detailRating">4.9</strong> (128)</span>
+            <span>•</span>
+            <span id="detailDuration">3 hours</span>
+            <span>•</span>
+            <span>Small group</span>
+          </div>
+
+          <div class="host">
+            <img
+              id="hostAvatar"
+              class="avatar"
+              src="assets/img/baunyale.jpg"
+              alt="Host" />
+            <div class="host-main">
+              <strong id="hostName">Baiq Erwina, 20</strong>
+              <span>Youth Connector · Sade Village, Lombok</span>
+            </div>
+            <span class="verified">✓ VERIFIED</span>
+          </div>
+
+          <div class="detail-section">
+            <h3>My Story</h3>
+            <p id="detailStory">
+              I grew up around Sade and want visitors to experience the village
+              beyond taking photos. During this small-group evening, I introduce
+              local stories, traditional spaces, food, and the people who keep
+              the community alive.
+            </p>
+          </div>
+
+          <div class="detail-section">
+            <h3>What you'll experience</h3>
+            <div class="facts">
+              <div class="fact">
+                <strong>Local</strong><span>Community host</span>
+              </div>
+              <div class="fact">
+                <strong>6 max</strong><span>Group size</span>
+              </div>
+              <div class="fact">
+                <strong>4.9 ★</strong><span>Guest rating</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail-section">
+            <h3>Meeting point</h3>
+            <p>
+              Sade Village, Rembitan, Central Lombok. Your Youth Local Connector
+              will meet you at the village entrance.
+            </p>
+          </div>
+        </div>
+
+        <div class="sticky-book">
+          <div class="sticky-inner">
+            <div class="sticky-price">
+              <span>From</span>
+              <strong id="detailPrice"
+                >Rp 460.000
+                <small style="font-size: 9px; color: #7c7772; font-weight: 500"
+                  >/ person</small
+                ></strong
+              >
+            </div>
+            <button class="btn btn-primary" onclick="openBookingFromDetail()">
+              Book Now
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MOBILE BOTTOM NAVIGATION -->
+      <nav class="bottom-nav" id="bottomNav" aria-label="Main navigation"></nav>
+
+      <!-- ALL MODAL DIALOGS -->
+      <div
+        class="modal"
+        id="bookingModal"
+        onclick="if(event.target===this)closeBooking()">
+        <div class="sheet">
+          <div class="handle"></div>
+          <div id="bookingForm">
+            <div class="sheet-head">
+              <h2>Book Experience</h2>
+              <button class="close" onclick="closeBooking()">×</button>
+            </div>
+            <p
+              id="bookingExperience"
+              style="
+                font-size: 11px;
+                color: var(--muted);
+                margin-bottom: 10px;
+              "></p>
+
+            <div class="form-group">
+              <label for="bookingDate">DATE</label>
+              <input id="bookingDate" class="field" type="date" />
+            </div>
+
+            <div class="form-group">
+              <label>GUESTS</label>
+              <div class="counter">
+                <button onclick="changeGuests(-1)">−</button>
+                <strong><span id="guestCount">2</span> guests</strong>
+                <button onclick="changeGuests(1)">+</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>MEETING TIME</label>
+              <select id="bookingTime" class="field">
+                <option>08:00 AM</option>
+                <option>10:00 AM</option>
+                <option>02:00 PM</option>
+                <option>04:30 PM</option>
+                <option>06:00 PM</option>
+              </select>
+            </div>
+
+            <div class="summary">
+              <div class="summary-row">
+                <span>Experience</span><strong id="sumName">—</strong>
+              </div>
+              <div class="summary-row">
+                <span>Price / person</span><span id="sumPrice">—</span>
+              </div>
+              <div class="summary-row">
+                <span>Guests</span><span id="sumGuests">2</span>
+              </div>
+              <div class="summary-row total">
+                <span>Total</span><strong id="sumTotal">—</strong>
+              </div>
+            </div>
+
+            <button
+              class="btn btn-primary btn-block"
+              style="margin-top: 13px"
+              onclick="confirmBooking()">
+              Confirm Booking
+            </button>
+          </div>
+
+          <div id="bookingSuccess" style="display: none">
+            <div class="success-box">
+              <div class="success-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+              </div>
+              <h2>Booking Confirmed</h2>
+              <p id="successText">
+                Your local experience has been added to My Bookings.
+              </p>
+              <button
+                class="btn btn-primary btn-block"
+                style="margin-top: 16px"
+                onclick="finishBooking()">
+                View My Booking
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit profile modal -->
+      <div
+        class="modal"
+        id="editProfileModal"
+        onclick="if(event.target===this)closeEditProfile()">
+        <div class="sheet">
+          <div class="handle"></div>
+          <div class="sheet-head">
+            <h2>Edit Profile</h2>
+            <button class="close" onclick="closeEditProfile()">×</button>
+          </div>
+          <div class="form-group">
+            <label>FULL NAME</label
+            ><input id="editName" class="field" type="text" />
+          </div>
+          <div class="form-group">
+            <label>EMAIL</label
+            ><input id="editEmail" class="field" type="email" />
+          </div>
+          <div class="form-group">
+            <label>SHORT BIO</label
+            ><textarea
+              id="editBio"
+              class="field"
+              style="height: 85px; padding-top: 12px; resize: none"></textarea>
+          </div>
+          <div class="form-group">
+            <label>PROFILE PHOTO URL</label
+            ><input
+              id="editAvatar"
+              class="field"
+              type="url"
+              placeholder="https://..." />
+          </div>
+          <button
+            class="btn btn-primary btn-block"
+            style="margin-top: 14px"
+            onclick="saveProfile()">
+            Save Changes
+          </button>
+        </div>
+      </div>
+
+      <!-- Language modal -->
+      <div
+        class="modal"
+        id="languageModal"
+        onclick="if(event.target===this)closeLanguage()">
+        <div class="sheet">
+          <div class="handle"></div>
+          <div class="sheet-head">
+            <h2>Language</h2>
+            <button class="close" onclick="closeLanguage()">×</button>
+          </div>
+          <p style="font-size: 11px; color: var(--muted); line-height: 1.6">
+            Choose the language used throughout the LokaLink interface.
+          </p>
+          <div class="choice-list">
+            <button id="langEN" class="choice-btn" onclick="setLanguage('en')">
+              <span>🇬🇧 English</span><span>✓</span>
+            </button>
+            <button id="langID" class="choice-btn" onclick="setLanguage('id')">
+              <span>🇮🇩 Bahasa Indonesia</span><span>✓</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add experience modal -->
+      <div
+        class="modal"
+        id="experienceModal"
+        onclick="if(event.target===this)closeExperienceForm()">
+        <div class="sheet">
+          <div class="handle"></div>
+          <div class="sheet-head">
+            <h2>Add Experience</h2>
+            <button class="close" onclick="closeExperienceForm()">×</button>
+          </div>
+          <p style="font-size: 11px; color: var(--muted); line-height: 1.6">
+            Create a bookable local experience for travelers.
+          </p>
+          <div class="form-grid">
+            <div class="form-group full">
+              <label>EXPERIENCE NAME</label
+              ><input
+                id="expTitle"
+                class="field"
+                type="text"
+                placeholder="e.g. Sasak Cooking with Grandma" />
+            </div>
+            <div class="form-group">
+              <label>CATEGORY</label
+              ><select id="expCategory" class="field">
+                <option>Culture</option>
+                <option>Nature</option>
+                <option>Food</option>
+                <option>Community</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>PRICE / PERSON</label
+              ><input
+                id="expPrice"
+                class="field"
+                type="number"
+                min="0"
+                placeholder="300000" />
+            </div>
+            <div class="form-group">
+              <label>LOCATION</label
+              ><input
+                id="expLocation"
+                class="field"
+                type="text"
+                placeholder="Sade Village" />
+            </div>
+            <div class="form-group">
+              <label>DURATION</label
+              ><input
+                id="expDuration"
+                class="field"
+                type="text"
+                placeholder="3 hours" />
+            </div>
+            <div class="form-group full">
+              <label>IMAGE URL</label
+              ><input
+                id="expImage"
+                class="field"
+                type="url"
+                placeholder="https://images.unsplash.com/..." />
+            </div>
+            <div class="form-group full">
+              <label>DESCRIPTION / MY STORY</label
+              ><textarea
+                id="expStory"
+                class="field"
+                style="height: 95px; padding-top: 12px; resize: none"
+                placeholder="Tell travelers what makes your experience special..."></textarea>
+            </div>
+          </div>
+          <button
+            class="btn btn-primary btn-block"
+            style="margin-top: 14px"
+            onclick="createExperience()">
+            Publish Experience
+          </button>
+        </div>
+      </div>
+
+      <!-- Become host modal -->
+      <div
+        class="modal"
+        id="hostModal"
+        onclick="if(event.target===this)closeHost()">
+        <div class="sheet">
+          <div class="handle"></div>
+          <div class="sheet-head">
+            <h2>Become a Local Host</h2>
+            <button class="close" onclick="closeHost()">×</button>
+          </div>
+          <p style="font-size: 11px; color: var(--muted); line-height: 1.65">
+            LokaLink supports local communities by turning local knowledge,
+            culture, food, and everyday activities into bookable experiences.
+          </p>
+          <div class="form-group">
+            <label>YOUR ROLE</label>
+            <select class="field">
+              <option>Local Host</option>
+              <option>Youth Local Connector</option>
+              <option>Community Organizer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>EXPERIENCE TYPE</label>
+            <select class="field">
+              <option>Culture</option>
+              <option>Nature</option>
+              <option>Food</option>
+              <option>Community</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>SHORT DESCRIPTION</label>
+            <textarea
+              class="field"
+              style="height: 90px; padding-top: 12px; resize: none"
+              placeholder="Tell travelers what makes your experience special..."></textarea>
+          </div>
+          <button
+            class="btn btn-primary btn-block"
+            style="margin-top: 14px"
+            onclick="submitHost()">
+            Start Local Host Registration
+          </button>
+        </div>
+      </div>
+
+      <!-- Booking detail modal -->
+      <div
+        class="modal"
+        id="bookingDetailModal"
+        onclick="if(event.target===this)closeBookingDetail()">
+        <div class="sheet">
+          <div class="handle"></div>
+          <div class="sheet-head">
+            <h2>Booking Details</h2>
+            <button class="close" onclick="closeBookingDetail()">×</button>
+          </div>
+          <div id="bookingDetailContent"></div>
+        </div>
+      </div>
+
+      <!-- Connector onboarding modal -->
+      <div class="ll-modal" id="connectorRegisterModal">
+        <div class="ll-modal-card">
+          <button class="ll-modal-close" onclick="closeConnectorRegistration()">
+            ×
+          </button>
+          <div class="ll-kicker">YOUTH LOCAL CONNECTOR</div>
+          <h2>Become a Local Connector</h2>
+          <p>
+            Help travelers discover local experiences and help community hosts
+            join LokaLink.
+          </p>
+          <div class="ll-form-grid">
+            <div class="ll-field">
+              <label>FULL NAME</label
+              ><input id="conRegName" placeholder="Your full name" />
+            </div>
+            <div class="ll-field">
+              <label>AGE</label
+              ><input
+                id="conRegAge"
+                type="number"
+                min="17"
+                max="70"
+                placeholder="e.g. 22" />
+            </div>
+            <div class="ll-field">
+              <label>PHONE NUMBER</label
+              ><input id="conRegPhone" placeholder="08xxxxxxxxxx" />
+            </div>
+            <div class="ll-field">
+              <label>EMAIL</label
+              ><input
+                id="conRegEmail"
+                type="email"
+                placeholder="you@example.com" />
+            </div>
+            <div class="ll-field">
+              <label>PASSWORD</label
+              ><input
+                id="conRegPassword"
+                type="password"
+                placeholder="Minimum 6 characters" />
+            </div>
+            <div class="ll-field">
+              <label>VILLAGE / DESA</label
+              ><input id="conRegVillage" placeholder="Your village" />
+            </div>
+            <div class="ll-field">
+              <label>DISTRICT / KECAMATAN</label
+              ><input id="conRegDistrict" placeholder="Your district" />
+            </div>
+            <div class="ll-field">
+              <label>LANGUAGES</label
+              ><input
+                id="conRegLanguages"
+                placeholder="Sasak, Indonesian, English" />
+            </div>
+            <div class="ll-field ll-full">
+              <label>WHAT CAN YOU HELP WITH?</label>
+              <div class="ll-checks">
+                <label
+                  ><input
+                    type="checkbox"
+                    name="connectorSkill"
+                    value="Local navigation" />
+                  Local navigation</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="connectorSkill"
+                    value="Communication" />
+                  Communication</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="connectorSkill"
+                    value="Local culture" />
+                  Local culture</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="connectorSkill"
+                    value="Traveler companion" />
+                  Traveler companion</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="connectorSkill"
+                    value="Local recommendations" />
+                  Local recommendations</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="connectorSkill"
+                    value="Helping local hosts" />
+                  Helping local hosts</label
+                >
+              </div>
+            </div>
+            <div class="ll-field ll-full">
+              <label>SERVICE AREA</label
+              ><input
+                id="conRegArea"
+                placeholder="e.g. Sukarara, Sade, Kuta Mandalika" />
+            </div>
+            <label class="ll-consent ll-full"
+              ><input id="conRegConsent" type="checkbox" /> I confirm that my
+              information is accurate and I agree to support travelers and local
+              communities respectfully.</label
+            >
+          </div>
+          <button
+            class="btn btn-primary btn-block"
+            onclick="submitConnectorRegistration()">
+            Submit Connector Registration
+          </button>
+        </div>
+      </div>
+
+      <!-- Connector request modal -->
+      <div class="ll-modal" id="connectorRequestModal">
+        <div class="ll-modal-card">
+          <button class="ll-modal-close" onclick="closeConnectorRequest()">
+            ×
+          </button>
+          <div class="ll-kicker">FIND A CONNECTOR</div>
+          <h2>Request Local Assistance</h2>
+          <p id="connectorRequestContext">
+            Tell a local connector what you need.
+          </p>
+          <div class="ll-form-grid">
+            <div class="ll-field ll-full">
+              <label>WHAT DO YOU NEED?</label>
+              <div class="ll-checks">
+                <label
+                  ><input
+                    type="checkbox"
+                    name="connectorNeed"
+                    value="Getting to the location" />
+                  Getting to the location</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="connectorNeed"
+                    value="Communication with Host" />
+                  Communication with Host</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="connectorNeed"
+                    value="Local companion" />
+                  Local companion</label
+                >
+                <label
+                  ><input
+                    type="checkbox"
+                    name="connectorNeed"
+                    value="Local recommendation" />
+                  Local recommendation</label
+                >
+              </div>
+            </div>
+            <div class="ll-field ll-full">
+              <label>MESSAGE</label
+              ><textarea
+                id="connectorRequestMessage"
+                rows="4"
+                placeholder="Tell the connector what you need..."></textarea>
+            </div>
+          </div>
+          <button
+            class="btn btn-primary btn-block"
+            onclick="submitConnectorRequest()">
+            Send Connector Request
+          </button>
+        </div>
+      </div>
+
+      <!-- Assisted host modal -->
+      <div class="ll-modal" id="hostAssistModal">
+        <div class="ll-modal-card">
+          <button class="ll-modal-close" onclick="closeHostAssist()">×</button>
+          <div class="ll-kicker">ASSISTED LOCAL HOST</div>
+          <h2>Register a Local Host</h2>
+          <p>
+            You are registering a community member with their consent. The host
+            remains the owner of their profile and experience.
+          </p>
+          <div class="ll-form-grid">
+            <div class="ll-field">
+              <label>HOST FULL NAME</label
+              ><input id="assistName" placeholder="e.g. Pak Ahmad" />
+            </div>
+            <div class="ll-field">
+              <label>HOST AGE</label
+              ><input
+                id="assistAge"
+                type="number"
+                min="18"
+                placeholder="e.g. 58" />
+            </div>
+            <div class="ll-field">
+              <label>PHONE NUMBER</label
+              ><input id="assistPhone" placeholder="08xxxxxxxxxx" />
+            </div>
+            <div class="ll-field">
+              <label>VILLAGE / DESA</label
+              ><input id="assistVillage" placeholder="Village" />
+            </div>
+            <div class="ll-field">
+              <label>OCCUPATION</label
+              ><input
+                id="assistOccupation"
+                placeholder="e.g. Traditional Weaver" />
+            </div>
+            <div class="ll-field">
+              <label>EXPERIENCE NAME</label
+              ><input
+                id="assistExperience"
+                placeholder="e.g. Traditional Sasak Weaving" />
+            </div>
+            <div class="ll-field">
+              <label>PRICE / PERSON</label
+              ><input
+                id="assistPrice"
+                type="number"
+                min="0"
+                placeholder="150000" />
+            </div>
+            <div class="ll-field">
+              <label>DURATION</label
+              ><input id="assistDuration" placeholder="2 hours" />
+            </div>
+            <div class="ll-field ll-full">
+              <label>EXPERIENCE DESCRIPTION</label
+              ><textarea
+                id="assistDescription"
+                rows="4"
+                placeholder="Describe what the host can offer..."></textarea>
+            </div>
+            <div class="ll-field ll-full">
+              <label>RELATIONSHIP TO HOST</label
+              ><select id="assistRelation">
+                <option>Family</option>
+                <option>Friend</option>
+                <option>Community member</option>
+                <option>Local acquaintance</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <label class="ll-consent ll-full"
+              ><input id="assistConsent" type="checkbox" /> I confirm that the
+              host has agreed to be registered on LokaLink and understands how
+              their profile will be used.</label
+            >
+          </div>
+          <button
+            class="btn btn-primary btn-block"
+            onclick="submitHostAssist()">
+            Submit Host Registration
+          </button>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+    </div>
+
+    <!-- Modular JavaScript Code Base -->
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/experiences.js"></script>
+    <script src="js/bookings.js"></script>
+    <script src="js/host.js"></script>
+    <script src="js/connector.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

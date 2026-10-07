@@ -1,0 +1,231 @@
+<!-- MODALS SECTION -->
+
+<!-- Booking sheet -->
+<div class="modal" id="bookingModal" onclick="if(event.target===this)closeBooking()">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div id="bookingForm">
+      <div class="sheet-head">
+        <h2>Book Experience</h2>
+        <button class="close" onclick="closeBooking()">×</button>
+      </div>
+      <p id="bookingExperience" style="font-size:11px;color:var(--muted);margin-bottom:10px"></p>
+
+      <div class="form-group">
+        <label for="bookingDate">DATE</label>
+        <input id="bookingDate" class="field" type="date">
+      </div>
+
+      <div class="form-group">
+        <label>GUESTS</label>
+        <div class="counter">
+          <button onclick="changeGuests(-1)">−</button>
+          <strong><span id="guestCount">2</span> guests</strong>
+          <button onclick="changeGuests(1)">+</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>MEETING TIME</label>
+        <select id="bookingTime" class="field">
+          <option>08:00 AM</option>
+          <option>10:00 AM</option>
+          <option>02:00 PM</option>
+          <option>04:30 PM</option>
+          <option>06:00 PM</option>
+        </select>
+      </div>
+
+      <div class="summary">
+        <div class="summary-row"><span>Experience</span><strong id="sumName">—</strong></div>
+        <div class="summary-row"><span>Price / person</span><span id="sumPrice">—</span></div>
+        <div class="summary-row"><span>Guests</span><span id="sumGuests">2</span></div>
+        <div class="summary-row total"><span>Total</span><strong id="sumTotal">—</strong></div>
+      </div>
+
+      <button class="btn btn-primary btn-block" style="margin-top:13px" onclick="confirmBooking()">Confirm Booking</button>
+    </div>
+
+    <div id="bookingSuccess" style="display:none">
+      <div class="success-box">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>
+        </div>
+        <h2>Booking Confirmed</h2>
+        <p id="successText">Your local experience has been added to My Bookings.</p>
+        <button class="btn btn-primary btn-block" style="margin-top:16px" onclick="finishBooking()">View My Booking</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit profile modal -->
+<div class="modal" id="editProfileModal" onclick="if(event.target===this)closeEditProfile()">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="sheet-head"><h2>Edit Profile</h2><button class="close" onclick="closeEditProfile()">×</button></div>
+    <div class="form-group"><label>FULL NAME</label><input id="editName" class="field" type="text"></div>
+    <div class="form-group"><label>EMAIL</label><input id="editEmail" class="field" type="email"></div>
+    <div class="form-group"><label>SHORT BIO</label><textarea id="editBio" class="field" style="height:85px;padding-top:12px;resize:none"></textarea></div>
+    <div class="form-group"><label>PROFILE PHOTO URL</label><input id="editAvatar" class="field" type="url" placeholder="https://..."></div>
+    <button class="btn btn-primary btn-block" style="margin-top:14px" onclick="saveProfile()">Save Changes</button>
+  </div>
+</div>
+
+<!-- Language modal -->
+<div class="modal" id="languageModal" onclick="if(event.target===this)closeLanguage()">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="sheet-head"><h2>Language</h2><button class="close" onclick="closeLanguage()">×</button></div>
+    <p style="font-size:11px;color:var(--muted);line-height:1.6">Choose the language used throughout the LokaLink interface.</p>
+    <div class="choice-list">
+      <button id="langEN" class="choice-btn" onclick="setLanguage('en')"><span>🇬🇧 English</span><span>✓</span></button>
+      <button id="langID" class="choice-btn" onclick="setLanguage('id')"><span>🇮🇩 Bahasa Indonesia</span><span>✓</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Add experience modal -->
+<div class="modal" id="experienceModal" onclick="if(event.target===this)closeExperienceForm()">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="sheet-head"><h2>Add Experience</h2><button class="close" onclick="closeExperienceForm()">×</button></div>
+    <p style="font-size:11px;color:var(--muted);line-height:1.6">Create a bookable local experience for travelers.</p>
+    <div class="form-grid">
+      <div class="form-group full"><label>EXPERIENCE NAME</label><input id="expTitle" class="field" type="text" placeholder="e.g. Sasak Cooking with Grandma"></div>
+      <div class="form-group"><label>CATEGORY</label><select id="expCategory" class="field"><option>Culture</option><option>Nature</option><option>Food</option><option>Community</option></select></div>
+      <div class="form-group"><label>PRICE / PERSON</label><input id="expPrice" class="field" type="number" min="0" placeholder="300000"></div>
+      <div class="form-group"><label>LOCATION</label><input id="expLocation" class="field" type="text" placeholder="Sade Village"></div>
+      <div class="form-group"><label>DURATION</label><input id="expDuration" class="field" type="text" placeholder="3 hours"></div>
+      <div class="form-group full"><label>IMAGE URL</label><input id="expImage" class="field" type="url" placeholder="https://images.unsplash.com/..."></div>
+      <div class="form-group full"><label>DESCRIPTION / MY STORY</label><textarea id="expStory" class="field" style="height:95px;padding-top:12px;resize:none" placeholder="Tell travelers what makes your experience special..."></textarea></div>
+    </div>
+    <button class="btn btn-primary btn-block" style="margin-top:14px" onclick="createExperience()">Publish Experience</button>
+  </div>
+</div>
+
+<!-- Become host modal -->
+<div class="modal" id="hostModal" onclick="if(event.target===this)closeHost()">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="sheet-head">
+      <h2>Become a Local Host</h2>
+      <button class="close" onclick="closeHost()">×</button>
+    </div>
+    <p style="font-size:11px;color:var(--muted);line-height:1.65">
+      LokaLink supports local communities by turning local knowledge, culture, food, and everyday activities into bookable experiences.
+    </p>
+    <div class="form-group">
+      <label>YOUR ROLE</label>
+      <select class="field">
+        <option>Local Host</option>
+        <option>Youth Local Connector</option>
+        <option>Community Organizer</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>EXPERIENCE TYPE</label>
+      <select class="field">
+        <option>Culture</option>
+        <option>Nature</option>
+        <option>Food</option>
+        <option>Community</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>SHORT DESCRIPTION</label>
+      <textarea class="field" style="height:90px;padding-top:12px;resize:none" placeholder="Tell travelers what makes your experience special..."></textarea>
+    </div>
+    <button class="btn btn-primary btn-block" style="margin-top:14px" onclick="submitHost()">Start Local Host Registration</button>
+  </div>
+</div>
+
+<!-- Booking detail modal -->
+<div class="modal" id="bookingDetailModal" onclick="if(event.target===this)closeBookingDetail()">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="sheet-head"><h2>Booking Details</h2><button class="close" onclick="closeBookingDetail()">×</button></div>
+    <div id="bookingDetailContent"></div>
+  </div>
+</div>
+
+<!-- Connector onboarding modal -->
+<div class="ll-modal" id="connectorRegisterModal">
+  <div class="ll-modal-card">
+    <button class="ll-modal-close" onclick="closeConnectorRegistration()">×</button>
+    <div class="ll-kicker">YOUTH LOCAL CONNECTOR</div>
+    <h2>Become a Local Connector</h2>
+    <p>Help travelers discover local experiences and help community hosts join LokaLink.</p>
+    <div class="ll-form-grid">
+      <div class="ll-field"><label>FULL NAME</label><input id="conRegName" placeholder="Your full name"></div>
+      <div class="ll-field"><label>AGE</label><input id="conRegAge" type="number" min="17" max="70" placeholder="e.g. 22"></div>
+      <div class="ll-field"><label>PHONE NUMBER</label><input id="conRegPhone" placeholder="08xxxxxxxxxx"></div>
+      <div class="ll-field"><label>EMAIL</label><input id="conRegEmail" type="email" placeholder="you@example.com"></div>
+      <div class="ll-field"><label>PASSWORD</label><input id="conRegPassword" type="password" placeholder="Minimum 6 characters"></div>
+      <div class="ll-field"><label>VILLAGE / DESA</label><input id="conRegVillage" placeholder="Your village"></div>
+      <div class="ll-field"><label>DISTRICT / KECAMATAN</label><input id="conRegDistrict" placeholder="Your district"></div>
+      <div class="ll-field"><label>LANGUAGES</label><input id="conRegLanguages" placeholder="Sasak, Indonesian, English"></div>
+      <div class="ll-field ll-full"><label>WHAT CAN YOU HELP WITH?</label>
+        <div class="ll-checks">
+          <label><input type="checkbox" name="connectorSkill" value="Local navigation"> Local navigation</label>
+          <label><input type="checkbox" name="connectorSkill" value="Communication"> Communication</label>
+          <label><input type="checkbox" name="connectorSkill" value="Local culture"> Local culture</label>
+          <label><input type="checkbox" name="connectorSkill" value="Traveler companion"> Traveler companion</label>
+          <label><input type="checkbox" name="connectorSkill" value="Local recommendations"> Local recommendations</label>
+          <label><input type="checkbox" name="connectorSkill" value="Helping local hosts"> Helping local hosts</label>
+        </div>
+      </div>
+      <div class="ll-field ll-full"><label>SERVICE AREA</label><input id="conRegArea" placeholder="e.g. Sukarara, Sade, Kuta Mandalika"></div>
+      <label class="ll-consent ll-full"><input id="conRegConsent" type="checkbox"> I confirm that my information is accurate and I agree to support travelers and local communities respectfully.</label>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="submitConnectorRegistration()">Submit Connector Registration</button>
+  </div>
+</div>
+
+<!-- Connector request modal -->
+<div class="ll-modal" id="connectorRequestModal">
+  <div class="ll-modal-card">
+    <button class="ll-modal-close" onclick="closeConnectorRequest()">×</button>
+    <div class="ll-kicker">FIND A CONNECTOR</div>
+    <h2>Request Local Assistance</h2>
+    <p id="connectorRequestContext">Tell a local connector what you need.</p>
+    <div class="ll-form-grid">
+      <div class="ll-field ll-full"><label>WHAT DO YOU NEED?</label>
+        <div class="ll-checks">
+          <label><input type="checkbox" name="connectorNeed" value="Getting to the location"> Getting to the location</label>
+          <label><input type="checkbox" name="connectorNeed" value="Communication with Host"> Communication with Host</label>
+          <label><input type="checkbox" name="connectorNeed" value="Local companion"> Local companion</label>
+          <label><input type="checkbox" name="connectorNeed" value="Local recommendation"> Local recommendation</label>
+        </div>
+      </div>
+      <div class="ll-field ll-full"><label>MESSAGE</label><textarea id="connectorRequestMessage" rows="4" placeholder="Tell the connector what you need..."></textarea></div>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="submitConnectorRequest()">Send Connector Request</button>
+  </div>
+</div>
+
+<!-- Assisted host modal -->
+<div class="ll-modal" id="hostAssistModal">
+  <div class="ll-modal-card">
+    <button class="ll-modal-close" onclick="closeHostAssist()">×</button>
+    <div class="ll-kicker">ASSISTED LOCAL HOST</div>
+    <h2>Register a Local Host</h2>
+    <p>You are registering a community member with their consent. The host remains the owner of their profile and experience.</p>
+    <div class="ll-form-grid">
+      <div class="ll-field"><label>HOST FULL NAME</label><input id="assistName" placeholder="e.g. Pak Ahmad"></div>
+      <div class="ll-field"><label>HOST AGE</label><input id="assistAge" type="number" min="18" placeholder="e.g. 58"></div>
+      <div class="ll-field"><label>PHONE NUMBER</label><input id="assistPhone" placeholder="08xxxxxxxxxx"></div>
+      <div class="ll-field"><label>VILLAGE / DESA</label><input id="assistVillage" placeholder="Village"></div>
+      <div class="ll-field"><label>OCCUPATION</label><input id="assistOccupation" placeholder="e.g. Traditional Weaver"></div>
+      <div class="ll-field"><label>EXPERIENCE NAME</label><input id="assistExperience" placeholder="e.g. Traditional Sasak Weaving"></div>
+      <div class="ll-field"><label>PRICE / PERSON</label><input id="assistPrice" type="number" min="0" placeholder="150000"></div>
+      <div class="ll-field"><label>DURATION</label><input id="assistDuration" placeholder="2 hours"></div>
+      <div class="ll-field ll-full"><label>EXPERIENCE DESCRIPTION</label><textarea id="assistDescription" rows="4" placeholder="Describe what the host can offer..."></textarea></div>
+      <div class="ll-field ll-full"><label>RELATIONSHIP TO HOST</label><select id="assistRelation"><option>Family</option><option>Friend</option><option>Community member</option><option>Local acquaintance</option><option>Other</option></select></div>
+      <label class="ll-consent ll-full"><input id="assistConsent" type="checkbox"> I confirm that the host has agreed to be registered on LokaLink and understands how their profile will be used.</label>
+    </div>
+    <button class="btn btn-primary btn-block" onclick="submitHostAssist()">Submit Host Registration</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>

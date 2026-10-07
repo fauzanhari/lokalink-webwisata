@@ -1,0 +1,24 @@
+<!-- DISCOVER SECTION -->
+<main id="discover" class="screen">
+  <div class="page-title">
+    <h1>Discover Local<br>Experiences</h1>
+    <p>Explore culture, nature, food, and everyday life hosted by local communities.</p>
+  </div>
+
+  <div class="search" style="margin-top:18px">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path>
+    </svg>
+    <input id="discoverSearch" type="search" placeholder="What do you want to experience?" oninput="renderDiscover()">
+  </div>
+
+  <div class="chips" id="discoverChips" style="margin-top:12px">
+    <button class="chip active" data-cat="All" onclick="setDiscoverCategory('All')">All</button>
+    <button class="chip" data-cat="Culture" onclick="setDiscoverCategory('Culture')">Culture</button>
+    <button class="chip" data-cat="Nature" onclick="setDiscoverCategory('Nature')">Nature</button>
+    <button class="chip" data-cat="Food" onclick="setDiscoverCategory('Food')">Food</button>
+    <button class="chip" data-cat="Community" onclick="setDiscoverCategory('Community')">Community</button>
+  </div>
+
+  <div id="discoverGrid" class="discover-grid"></div>
+</main>

@@ -1,0 +1,55 @@
+:root {
+  --bg: #FAF8F5;
+  --surface: #FFFFFF;
+  --text: #333333;
+  --muted: #7C7772;
+  --accent: #B34115;
+  --accent-dark: #8F3210;
+  --accent-soft: #F3E5DD;
+  --line: #ECE7E1;
+  --success: #2F7D55;
+  --shadow: 0 10px 30px rgba(52, 39, 29, 0.08);
+  --shadow-soft: 0 5px 18px rgba(52, 39, 29, 0.06);
+  --radius: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: #242321;
+  color: var(--text);
+  font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+.serif {
+  font-family: 'Raleway', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', sans-serif;
+}

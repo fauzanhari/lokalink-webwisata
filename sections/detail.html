@@ -1,0 +1,100 @@
+<!-- DETAIL SECTION -->
+<section id="detail" class="screen" style="display: none">
+  <div class="detail-hero">
+    <img id="detailImage" alt="Experience" />
+    <button class="floating back-btn" onclick="closeDetail()" aria-label="Back">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2">
+        <path d="m15 18-6-6 6-6" />
+      </svg>
+    </button>
+    <button
+      class="floating share-btn"
+      onclick="showToast('Share link copied.')">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8">
+        <circle cx="18" cy="5" r="3" />
+        <circle cx="6" cy="12" r="3" />
+        <circle cx="18" cy="19" r="3" />
+        <path d="m8.7 10.7 6.6-3.4M8.7 13.3l6.6 3.4" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="detail-body">
+    <div class="detail-badge" id="detailCategory">CULTURE · SADE VILLAGE</div>
+    <h1 class="detail-title" id="detailTitle">Bau Nyale Festival</h1>
+    <div class="detail-meta">
+      <span>★ <strong id="detailRating">4.9</strong> (128)</span>
+      <span>•</span>
+      <span id="detailDuration">3 hours</span>
+      <span>•</span>
+      <span>Small group</span>
+    </div>
+
+    <div class="host">
+      <img
+        id="hostAvatar"
+        class="avatar"
+        src="assets/img/baunyale.jpg"
+        alt="Host" />
+      <div class="host-main">
+        <strong id="hostName">Baiq Erwina, 22</strong>
+        <span>Youth Connector · Sade Village, Lombok</span>
+      </div>
+      <span class="verified">✓ VERIFIED</span>
+    </div>
+
+    <div class="detail-section">
+      <h3>My Story</h3>
+      <p id="detailStory">
+        I grew up around Sade and want visitors to experience the village beyond
+        taking photos. During this small-group evening, I introduce local
+        stories, traditional spaces, food, and the people who keep the community
+        alive.
+      </p>
+    </div>
+
+    <div class="detail-section">
+      <h3>What you'll experience</h3>
+      <div class="facts">
+        <div class="fact">
+          <strong>Local</strong><span>Community host</span>
+        </div>
+        <div class="fact"><strong>6 max</strong><span>Group size</span></div>
+        <div class="fact"><strong>4.9 ★</strong><span>Guest rating</span></div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <h3>Meeting point</h3>
+      <p>
+        Sade Village, Rembitan, Central Lombok. Your Youth Local Connector will
+        meet you at the village entrance.
+      </p>
+    </div>
+  </div>
+
+  <div class="sticky-book">
+    <div class="sticky-inner">
+      <div class="sticky-price">
+        <span>From</span>
+        <strong id="detailPrice"
+          >Rp 460.000
+          <small style="font-size: 9px; color: #7c7772; font-weight: 500"
+            >/ person</small
+          ></strong
+        >
+      </div>
+      <button class="btn btn-primary" onclick="openBookingFromDetail()">
+        Book Now
+      </button>
+    </div>
+  </div>
+</section>

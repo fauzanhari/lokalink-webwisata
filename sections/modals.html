@@ -119,7 +119,6 @@
       <label>YOUR ROLE</label>
       <select class="field">
         <option>Local Host</option>
-        <option>Youth Local Connector</option>
         <option>Community Organizer</option>
       </select>
     </div>
@@ -149,83 +148,5 @@
   </div>
 </div>
 
-<!-- Connector onboarding modal -->
-<div class="ll-modal" id="connectorRegisterModal">
-  <div class="ll-modal-card">
-    <button class="ll-modal-close" onclick="closeConnectorRegistration()">×</button>
-    <div class="ll-kicker">YOUTH LOCAL CONNECTOR</div>
-    <h2>Become a Local Connector</h2>
-    <p>Help travelers discover local experiences and help community hosts join LokaLink.</p>
-    <div class="ll-form-grid">
-      <div class="ll-field"><label>FULL NAME</label><input id="conRegName" placeholder="Your full name"></div>
-      <div class="ll-field"><label>AGE</label><input id="conRegAge" type="number" min="17" max="70" placeholder="e.g. 22"></div>
-      <div class="ll-field"><label>PHONE NUMBER</label><input id="conRegPhone" placeholder="08xxxxxxxxxx"></div>
-      <div class="ll-field"><label>EMAIL</label><input id="conRegEmail" type="email" placeholder="you@example.com"></div>
-      <div class="ll-field"><label>PASSWORD</label><input id="conRegPassword" type="password" placeholder="Minimum 6 characters"></div>
-      <div class="ll-field"><label>VILLAGE / DESA</label><input id="conRegVillage" placeholder="Your village"></div>
-      <div class="ll-field"><label>DISTRICT / KECAMATAN</label><input id="conRegDistrict" placeholder="Your district"></div>
-      <div class="ll-field"><label>LANGUAGES</label><input id="conRegLanguages" placeholder="Sasak, Indonesian, English"></div>
-      <div class="ll-field ll-full"><label>WHAT CAN YOU HELP WITH?</label>
-        <div class="ll-checks">
-          <label><input type="checkbox" name="connectorSkill" value="Local navigation"> Local navigation</label>
-          <label><input type="checkbox" name="connectorSkill" value="Communication"> Communication</label>
-          <label><input type="checkbox" name="connectorSkill" value="Local culture"> Local culture</label>
-          <label><input type="checkbox" name="connectorSkill" value="Traveler companion"> Traveler companion</label>
-          <label><input type="checkbox" name="connectorSkill" value="Local recommendations"> Local recommendations</label>
-          <label><input type="checkbox" name="connectorSkill" value="Helping local hosts"> Helping local hosts</label>
-        </div>
-      </div>
-      <div class="ll-field ll-full"><label>SERVICE AREA</label><input id="conRegArea" placeholder="e.g. Sukarara, Sade, Kuta Mandalika"></div>
-      <label class="ll-consent ll-full"><input id="conRegConsent" type="checkbox"> I confirm that my information is accurate and I agree to support travelers and local communities respectfully.</label>
-    </div>
-    <button class="btn btn-primary btn-block" onclick="submitConnectorRegistration()">Submit Connector Registration</button>
-  </div>
-</div>
-
-<!-- Connector request modal -->
-<div class="ll-modal" id="connectorRequestModal">
-  <div class="ll-modal-card">
-    <button class="ll-modal-close" onclick="closeConnectorRequest()">×</button>
-    <div class="ll-kicker">FIND A CONNECTOR</div>
-    <h2>Request Local Assistance</h2>
-    <p id="connectorRequestContext">Tell a local connector what you need.</p>
-    <div class="ll-form-grid">
-      <div class="ll-field ll-full"><label>WHAT DO YOU NEED?</label>
-        <div class="ll-checks">
-          <label><input type="checkbox" name="connectorNeed" value="Getting to the location"> Getting to the location</label>
-          <label><input type="checkbox" name="connectorNeed" value="Communication with Host"> Communication with Host</label>
-          <label><input type="checkbox" name="connectorNeed" value="Local companion"> Local companion</label>
-          <label><input type="checkbox" name="connectorNeed" value="Local recommendation"> Local recommendation</label>
-        </div>
-      </div>
-      <div class="ll-field ll-full"><label>MESSAGE</label><textarea id="connectorRequestMessage" rows="4" placeholder="Tell the connector what you need..."></textarea></div>
-    </div>
-    <button class="btn btn-primary btn-block" onclick="submitConnectorRequest()">Send Connector Request</button>
-  </div>
-</div>
-
-<!-- Assisted host modal -->
-<div class="ll-modal" id="hostAssistModal">
-  <div class="ll-modal-card">
-    <button class="ll-modal-close" onclick="closeHostAssist()">×</button>
-    <div class="ll-kicker">ASSISTED LOCAL HOST</div>
-    <h2>Register a Local Host</h2>
-    <p>You are registering a community member with their consent. The host remains the owner of their profile and experience.</p>
-    <div class="ll-form-grid">
-      <div class="ll-field"><label>HOST FULL NAME</label><input id="assistName" placeholder="e.g. Pak Ahmad"></div>
-      <div class="ll-field"><label>HOST AGE</label><input id="assistAge" type="number" min="18" placeholder="e.g. 58"></div>
-      <div class="ll-field"><label>PHONE NUMBER</label><input id="assistPhone" placeholder="08xxxxxxxxxx"></div>
-      <div class="ll-field"><label>VILLAGE / DESA</label><input id="assistVillage" placeholder="Village"></div>
-      <div class="ll-field"><label>OCCUPATION</label><input id="assistOccupation" placeholder="e.g. Traditional Weaver"></div>
-      <div class="ll-field"><label>EXPERIENCE NAME</label><input id="assistExperience" placeholder="e.g. Traditional Sasak Weaving"></div>
-      <div class="ll-field"><label>PRICE / PERSON</label><input id="assistPrice" type="number" min="0" placeholder="150000"></div>
-      <div class="ll-field"><label>DURATION</label><input id="assistDuration" placeholder="2 hours"></div>
-      <div class="ll-field ll-full"><label>EXPERIENCE DESCRIPTION</label><textarea id="assistDescription" rows="4" placeholder="Describe what the host can offer..."></textarea></div>
-      <div class="ll-field ll-full"><label>RELATIONSHIP TO HOST</label><select id="assistRelation"><option>Family</option><option>Friend</option><option>Community member</option><option>Local acquaintance</option><option>Other</option></select></div>
-      <label class="ll-consent ll-full"><input id="assistConsent" type="checkbox"> I confirm that the host has agreed to be registered on LokaLink and understands how their profile will be used.</label>
-    </div>
-    <button class="btn btn-primary btn-block" onclick="submitHostAssist()">Submit Host Registration</button>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
+

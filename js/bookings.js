@@ -244,18 +244,6 @@ function openBookingDetail(id) {
     ${b.status === 'Pending' ? `<p style="font-size:9px;color:#8C857F;margin-top:12px">Booking ini masih menunggu konfirmasi dari host. Status akan berubah setelah host memproses permintaan.</p>` : ''}
   `;
 
-  if (authRole === 'traveler') {
-    const box = document.createElement('div');
-    box.className = 'connector-card';
-    box.style.marginTop = '12px';
-    box.innerHTML = `
-      <h3>Need local assistance?</h3>
-      <p>A Youth Local Connector can help you find the location, communicate with your host, or accompany you locally.</p>
-      <button class="btn btn-primary btn-block" style="margin-top:10px" onclick='openConnectorRequest(${JSON.stringify({ bookingId: b.id, title: b.title, date: b.date, time: b.time, location: b.location })})'>Find a Connector</button>
-    `;
-    content.appendChild(box);
-  }
-
   const modal = document.getElementById('bookingDetailModal');
   if (modal) modal.classList.add('open');
 }

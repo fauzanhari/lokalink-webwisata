@@ -1,7 +1,7 @@
 /* Navigation & Screen Routing */
 
 function renderNavigation() {
-  const nav = authRole === 'traveler' ? travelerNav : authRole === 'host' ? hostNav : connectorNav;
+  const nav = authRole === 'host' ? hostNav : travelerNav;
   const mobile = document.getElementById('bottomNav');
   if (mobile) {
     mobile.innerHTML = nav.map(([id, label, icon]) => `
@@ -33,14 +33,6 @@ function goTo(id) {
     renderSaved();
     window.scrollTo({ top: 0, behavior: 'smooth' });
     return;
-  }
-
-  if (authRole === 'connector') {
-    if (id === 'profile' || connectorNav.some(x => x[0] === id)) {
-      activateConnectorScreen(id);
-      return;
-    }
-    if (id === 'home') return;
   }
 
   const allowedTraveler = travelerNav.some(x => x[0] === id) || id === 'saved';
@@ -94,10 +86,11 @@ function updateStaticLanguage() {
   const user = getUser();
   const map = {
     '#desktopName': user.name,
-    '#desktopRole': authRole === 'connector' ? 'Youth Local Connector' : authRole === 'host' ? 'Local Host' : 'Traveler'
+    '#desktopRole': authRole === 'host' ? 'Local Host' : 'Traveler'
   };
   Object.entries(map).forEach(([sel, val]) => {
     const e = document.querySelector(sel);
     if (e) e.textContent = val;
   });
 }
+

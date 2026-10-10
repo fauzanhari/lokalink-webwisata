@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const logged = localStorage.getItem('lokallink_logged_in') === 'true';
   const savedRole = localStorage.getItem('lokallink_role');
 
-  if (logged && (savedRole === 'traveler' || savedRole === 'host' || savedRole === 'connector')) {
+  if (logged && (savedRole === 'traveler' || savedRole === 'host')) {
     authRole = savedRole;
     if (authGate) authGate.style.display = 'none';
     const splash = document.getElementById('splash');
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(dismissLoading, 4000);
 
     applyRoleUI();
-    goTo(authRole === 'traveler' ? 'home' : authRole === 'host' ? 'hostDashboard' : 'connectorDashboard');
+    goTo(authRole === 'traveler' ? 'home' : 'hostDashboard');
   } else {
     if (authGate) authGate.style.display = 'flex';
     const splash = document.getElementById('splash');

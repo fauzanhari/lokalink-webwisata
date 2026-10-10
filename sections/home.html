@@ -27,28 +27,26 @@
 
   <div class="section" style="margin-top:18px">
     <div class="chips" id="homeChips">
-      <button class="chip active" data-cat="All" onclick="setCategory('All')">All</button>
-      <button class="chip" data-cat="Culture" onclick="setCategory('Culture')">Culture</button>
-      <button class="chip" data-cat="Nature" onclick="setCategory('Nature')">Nature</button>
-      <button class="chip" data-cat="Food" onclick="setCategory('Food')">Food</button>
-      <button class="chip" data-cat="Community" onclick="setCategory('Community')">Community</button>
+      <button class="chip active" data-cat="All" onclick="setCategory('All')">Semua</button>
+      <button class="chip" data-cat="Pengalaman Lokal" onclick="setCategory('Pengalaman Lokal')">🤝 Pengalaman Masyarakat Lokal</button>
+      <button class="chip" data-cat="Destinasi Wisata" onclick="setCategory('Destinasi Wisata')">📍 Destinasi Wisata</button>
     </div>
   </div>
 
   <div class="section">
     <div class="section-head" style="padding:0 18px">
-      <h2 class="section-title">Featured Experience</h2>
-      <button class="see-all" onclick="goTo('discover')">Explore</button>
+      <h2 class="section-title">Pilihan Pengalaman Utama</h2>
+      <button class="see-all" onclick="goTo('discover')">Jelajahi</button>
     </div>
 
-    <article class="featured" onclick="openDetail('fullmoon')">
-      <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85" alt="Village landscape">
+    <article class="featured" onclick="openDetail('menenunsade')">
+      <img src="assets/img/desaadatsade.jpg" alt="Menenun Kain Songket Tradisional">
       <div class="featured-content">
-        <span class="pill">✦ Community Pick</span>
-        <h2>Full Moon Festival at Sade Village</h2>
+        <span class="pill">✦ Pengalaman Lokal</span>
+        <h2>Menenun Kain Songket Tradisional</h2>
         <div class="featured-row">
-          <span class="featured-meta">Culture · Sade Village · ★ 4.9</span>
-          <button class="btn btn-primary" onclick="event.stopPropagation(); openBooking('Full Moon Festival at Sade Village',460000)">Book Now</button>
+          <span class="featured-meta">Pengalaman Lokal · Desa Sade · ★ 4.9</span>
+          <button class="btn btn-primary" onclick="event.stopPropagation(); openDetail('menenunsade')">Booking Host</button>
         </div>
       </div>
     </article>

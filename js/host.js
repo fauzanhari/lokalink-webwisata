@@ -130,5 +130,4 @@ function patchHostButtons() {
   if (actionTiles[0]) actionTiles[0].onclick = openExperienceForm;
   if (actionTiles[1]) actionTiles[1].onclick = hostViewAllBookings;
   if (actionTiles[2]) actionTiles[2].onclick = () => goTo('hostImpact');
-  if (actionTiles[3]) actionTiles[3].onclick = () => showToast('Youth Connector workspace opened.');
 }

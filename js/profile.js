@@ -5,36 +5,6 @@ function renderProfile() {
   if (!p) return;
   const u = getUser();
 
-  if (authRole === 'connector') {
-    p.innerHTML = `
-      <div class="profile">
-        <div class="profile-card">
-          <img class="profile-avatar" src="${u.avatar}" alt="Profile">
-          <h1>${escapeHtml(u.name)}</h1>
-          <p>Youth Local Connector · ${escapeHtml(u.village || 'Local Community')}</p>
-          <div class="profile-actions">
-            <button class="btn btn-primary btn-block" onclick="openConnectorProfileEditor()">Edit Profile</button>
-          </div>
-        </div>
-        <div class="profile-menu">
-          <div class="menu-item" onclick="goTo('connectorHosts')">
-            <div class="mi">♧</div><strong>Assisted Local Hosts</strong><span>${getAssistedHosts().length} hosts ›</span>
-          </div>
-          <div class="menu-item" onclick="goTo('connectorConnections')">
-            <div class="mi">↔</div><strong>My Connections</strong><span>${getConnectorRequests().filter(r => r.status === 'Accepted').length} active ›</span>
-          </div>
-          <div class="menu-item" onclick="openLanguage()">
-            <div class="mi">Aa</div><strong>${tr('language')}</strong><span>${uiLanguage === 'en' ? 'English' : 'Bahasa Indonesia'} ›</span>
-          </div>
-          <div class="menu-item" onclick="logoutUser()">
-            <div class="mi">↪</div><strong>${tr('logout')}</strong><span>Sign out of this account ›</span>
-          </div>
-        </div>
-      </div>
-    `;
-    return;
-  }
-
   const roleText = authRole === 'host' ? 'Local Host · Community' : 'Traveler · Exploring Lombok since 2026';
   p.innerHTML = `
     <div class="profile">

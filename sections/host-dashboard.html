@@ -4,61 +4,100 @@
     <div class="welcome-row">
       <div>
         <div class="role-badge">LOCAL HOST · COMMUNITY</div>
-        <h1 style="margin-top:10px">Good Morning, Rafi 👋</h1>
+        <h1 style="margin-top: 10px">Good Morning, Rafi 👋</h1>
         <p>Manage your experiences and connect with travelers.</p>
       </div>
-      <button class="icon-btn" onclick="showToast('You have 3 new traveler updates.')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z"/><path d="M10 21h4"/>
+      <button
+        class="icon-btn"
+        onclick="showToast('You have 3 new traveler updates.')">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8">
+          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" />
+          <path d="M10 21h4" />
         </svg>
       </button>
     </div>
 
     <div class="host-stat-grid">
-      <div class="host-stat"><span>This month</span><strong>Rp 8,46M</strong><small>+18.4% income</small></div>
-      <div class="host-stat"><span>Bookings</span><strong>24</strong><small>5 upcoming</small></div>
-      <div class="host-stat"><span>Rating</span><strong>4.9 ★</strong><small>128 reviews</small></div>
-      <div class="host-stat"><span>Impact</span><strong>18</strong><small>local families</small></div>
+      <div class="host-stat">
+        <span>This month</span><strong>Rp 8,46M</strong
+        ><small>+18.4% income</small>
+      </div>
+      <div class="host-stat">
+        <span>Bookings</span><strong>24</strong><small>5 upcoming</small>
+      </div>
+      <div class="host-stat">
+        <span>Rating</span><strong>4.9 ★</strong><small>128 reviews</small>
+      </div>
+      <div class="host-stat">
+        <span>Impact</span><strong>18</strong><small>local families</small>
+      </div>
     </div>
 
     <div class="host-dashboard-grid">
       <div>
         <div class="dashboard-card">
-          <div class="section-head" style="padding:0;margin:0">
-            <h3 style="margin:0">Upcoming Bookings</h3>
-            <button class="see-all" onclick="hostViewAllBookings()">View all</button>
+          <div class="section-head" style="padding: 0; margin: 0">
+            <h3 style="margin: 0">Upcoming Bookings</h3>
+            <button class="see-all" onclick="hostViewAllBookings()">
+              View all
+            </button>
           </div>
 
           <div class="host-row">
-            <img src="https://i.pravatar.cc/100?img=12" alt="Guest">
-            <div class="host-row-main"><strong>Alex Morgan · 2 guests</strong><span>Full Moon Festival · 12 Oct · 06:00 PM</span></div>
+            <img src="https://i.pravatar.cc/100?img=12" alt="Guest" />
+            <div class="host-row-main">
+              <strong>Fauzan hari · 2 guests</strong
+              ><span>Full Moon Festival · 12 Oct · 06:00 PM</span>
+            </div>
             <div class="host-row-price">Rp 920K</div>
           </div>
           <div class="host-row">
-            <img src="https://i.pravatar.cc/100?img=32" alt="Guest">
-            <div class="host-row-main"><strong>Sarah Lee · 3 guests</strong><span>Sasak Village Walk · 14 Oct · 09:00 AM</span></div>
+            <img src="https://i.pravatar.cc/100?img=32" alt="Guest" />
+            <div class="host-row-main">
+              <strong>Sarah Lee · 3 guests</strong
+              ><span>Sasak Village Walk · 14 Oct · 09:00 AM</span>
+            </div>
             <div class="host-row-price">Rp 1,05M</div>
           </div>
           <div class="host-row">
-            <img src="https://i.pravatar.cc/100?img=44" alt="Guest">
-            <div class="host-row-main"><strong>Daniel Tan · 2 guests</strong><span>Local Cooking Class · 16 Oct · 02:00 PM</span></div>
+            <img src="https://i.pravatar.cc/100?img=44" alt="Guest" />
+            <div class="host-row-main">
+              <strong>Daniel Tan · 2 guests</strong
+              ><span>Local Cooking Class · 16 Oct · 02:00 PM</span>
+            </div>
             <div class="host-row-price">Rp 560K</div>
           </div>
         </div>
 
         <div class="dashboard-card">
-          <div class="section-head" style="padding:0;margin:0">
-            <h3 style="margin:0">Your Experiences</h3>
-            <button class="see-all" onclick="hostManageExperiences()">Manage</button>
+          <div class="section-head" style="padding: 0; margin: 0">
+            <h3 style="margin: 0">Your Experiences</h3>
+            <button class="see-all" onclick="hostManageExperiences()">
+              Manage
+            </button>
           </div>
           <div class="host-row">
-            <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=500&q=80" alt="Experience">
-            <div class="host-row-main"><strong>Full Moon Festival at Sade Village</strong><span>Published · Culture · ★ 4.9</span></div>
+            <img
+              src="https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=500&q=80"
+              alt="Experience" />
+            <div class="host-row-main">
+              <strong>Full Moon Festival at Sade Village</strong
+              ><span>Published · Culture · ★ 4.9</span>
+            </div>
             <div class="host-row-price">Rp 460K</div>
           </div>
           <div class="host-row">
-            <img src="https://images.unsplash.com/photo-1606913079621-e64bd7a9a9d3?auto=format&fit=crop&w=500&q=80" alt="Experience">
-            <div class="host-row-main"><strong>Traditional Sasak Weaving</strong><span>Published · Culture · ★ 4.8</span></div>
+            <img
+              src="https://images.unsplash.com/photo-1606913079621-e64bd7a9a9d3?auto=format&fit=crop&w=500&q=80"
+              alt="Experience" />
+            <div class="host-row-main">
+              <strong>Traditional Sasak Weaving</strong
+              ><span>Published · Culture · ★ 4.8</span>
+            </div>
             <div class="host-row-price">Rp 320K</div>
           </div>
         </div>
@@ -69,29 +108,34 @@
           <h3>Quick Actions</h3>
           <div class="host-action-grid">
             <button class="action-tile" onclick="openExperienceForm()">
-              <div class="tile-icon">＋</div><strong>Add Experience</strong><span>Create a new local activity.</span>
+              <div class="tile-icon">＋</div>
+              <strong>Add Experience</strong
+              ><span>Create a new local activity.</span>
             </button>
             <button class="action-tile" onclick="hostViewAllBookings()">
-              <div class="tile-icon">▣</div><strong>Manage Bookings</strong><span>Review dates and guests.</span>
+              <div class="tile-icon">▣</div>
+              <strong>Manage Bookings</strong
+              ><span>Review dates and guests.</span>
             </button>
             <button class="action-tile" onclick="goTo('hostImpact')">
-              <div class="tile-icon">Rp</div><strong>Earnings</strong><span>Track your local income.</span>
-            </button>
-            <button class="action-tile" onclick="showToast('Youth Connector workspace opened.')">
-              <div class="tile-icon">↗</div><strong>Youth Connector</strong><span>Coordinate local tourism.</span>
+              <div class="tile-icon">Rp</div>
+              <strong>Earnings</strong><span>Track your local income.</span>
             </button>
           </div>
         </div>
 
         <div class="dashboard-card">
           <h3>Community Impact</h3>
-          <p style="font-size:11px;color:var(--muted);line-height:1.7">
-            Your experiences have generated direct spending for local households,
-            small food businesses, craftspeople, and community activities.
+          <p style="font-size: 11px; color: var(--muted); line-height: 1.7">
+            Your experiences have generated direct spending for local
+            households, small food businesses, craftspeople, and community
+            activities.
           </p>
           <div class="progress-row">
-            <div class="progress-label"><span>Local income routed</span><strong>84%</strong></div>
-            <div class="bar"><i style="width:84%"></i></div>
+            <div class="progress-label">
+              <span>Local income routed</span><strong>84%</strong>
+            </div>
+            <div class="bar"><i style="width: 84%"></i></div>
           </div>
         </div>
       </div>

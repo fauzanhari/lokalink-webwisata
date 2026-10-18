@@ -114,7 +114,7 @@ function confirmBooking() {
   });
   const hostInfo = {
     hostName: currentExperience.host || "Local Host",
-    hostEmail: currentExperience.hostEmail || "wa.me/6281392718123",
+    hostEmail: currentExperience.hostEmail || "",
     hostAvatar: currentExperience.avatar || "assets/img/host_rafi_maulana.png",
   };
 
@@ -212,7 +212,7 @@ function renderHostBookingsV2() {
   if (!root) return;
   const hostEmail = getUser().email;
   const list = getBookingRecords().filter(
-    (b) => !b.hostEmail || b.hostEmail === hostEmail
+    (b) => b.hostEmail === hostEmail
   );
   root.innerHTML = `
     <div class="page-title">

@@ -52,6 +52,7 @@ function createExperience() {
     duration: document.getElementById('expDuration')?.value.trim() || '3 hours',
     image: document.getElementById('expImage')?.value.trim() || 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85',
     host: getUser().name,
+    hostEmail: getUser().email,
     story: document.getElementById('expStory')?.value.trim() || 'A locally hosted experience created through LokaLink.',
     avatar: getUser().avatar,
     rating: 'New'

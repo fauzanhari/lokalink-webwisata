@@ -24,29 +24,27 @@ document.addEventListener('DOMContentLoaded', function () {
   // Dismiss loading screen after 5 seconds
   setTimeout(dismissLoading, 4000);
 
-  // ── Initialize Auth state from localStorage ──
-  const logged = localStorage.getItem('lokallink_logged_in') === 'true';
-  const savedRole = localStorage.getItem('lokallink_role');
+  // ── Always require login on every page load ──
+  // Clear any previously stored session so user must always sign in
+  localStorage.removeItem('lokallink_logged_in');
+  localStorage.removeItem('lokallink_role');
+  localStorage.removeItem('lokallink_email');
 
-  if (logged && (savedRole === 'traveler' || savedRole === 'host')) {
-    authRole = savedRole;
-    if (authGate) authGate.style.display = 'none';
-    const splash = document.getElementById('splash');
-    if (splash) splash.style.display = 'none';
+  // Always show the login gate after loading screen
+  if (authGate) authGate.style.display = 'flex';
+  const splash = document.getElementById('splash');
+  if (splash) splash.style.display = 'none';
 
-    // If already logged in, dismiss loading faster
-    setTimeout(dismissLoading, 4000);
+  selectAuthRole('traveler');
+  renderNavigation();
 
-    applyRoleUI();
-    goTo(authRole === 'traveler' ? 'home' : 'hostDashboard');
-  } else {
-    if (authGate) authGate.style.display = 'flex';
-    const splash = document.getElementById('splash');
-    if (splash) splash.style.display = 'none';
-
-    selectAuthRole('traveler');
-    renderNavigation();
-  }
+  // Load host-created experiences into the shared experiences array
+  // so they appear in traveler's Home & Discover pages
+  hostExperiences.forEach(he => {
+    if (!experiences.find(e => e.id === he.id)) {
+      experiences.push(he);
+    }
+  });
 
   // Initial renders for active views
   renderTrending();

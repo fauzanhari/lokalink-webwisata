@@ -39,12 +39,16 @@ function createExperience() {
     return;
   }
 
+  const selectedCategory = document.getElementById('expCategory')?.value || 'Local Experience';
+  const isWisata = selectedCategory === 'Destination';
+
   const e = {
     id: 'host-' + Date.now(),
     title,
-    category: document.getElementById('expCategory')?.value || 'Culture',
+    category: isWisata ? 'Destinasi Wisata' : 'Pengalaman Lokal',
+    type: isWisata ? 'wisata' : 'pengalaman',
     location,
-    price,
+    price: isWisata ? 0 : price,
     duration: document.getElementById('expDuration')?.value.trim() || '3 hours',
     image: document.getElementById('expImage')?.value.trim() || 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=85',
     host: getUser().name,
@@ -56,6 +60,9 @@ function createExperience() {
   hostExperiences.push(e);
   localStorage.setItem(expKey, JSON.stringify(hostExperiences));
 
+  // Tambahkan langsung ke array experiences agar muncul di halaman traveler
+  experiences.push(e);
+
   ['expTitle', 'expPrice', 'expLocation', 'expDuration', 'expImage', 'expStory'].forEach(id => {
     const field = document.getElementById(id);
     if (field) field.value = '';
@@ -64,6 +71,11 @@ function createExperience() {
   closeExperienceForm();
   renderHostExperiences();
   renderProfile();
+
+  // Refresh tampilan traveler secara real-time
+  if (typeof renderTrending === 'function') renderTrending();
+  if (typeof renderDiscover === 'function') renderDiscover();
+
   showToast('Experience published successfully.');
   goTo('hostExperiences');
 }

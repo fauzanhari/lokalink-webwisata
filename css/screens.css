@@ -9,8 +9,7 @@
       rgba(31, 25, 20, 0.65) 50%,
       rgba(31, 25, 20, 0.25) 100%
     ),
-    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=90")
-      center/cover no-repeat;
+    url("../assets/img/kutamandalika.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;

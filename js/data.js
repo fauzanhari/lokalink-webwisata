@@ -11,11 +11,11 @@ const experiences = [
     price: 320000,
     duration: "2.5 jam",
     image: "assets/img/desaadatsade.jpg",
-    host: "Inaq Siti, 45 (Penun Sasak)",
+    host: "Inaq Siti, 45 (Penenun Sasak)",
     hostEmail: "host@lokallink.id",
     story:
       "Belajar seni menenun kain Songket Sasak yang diwariskan secara turun-temurun. Anda akan diajarkan langsung oleh ibu-ibu penenun wanita di Desa Sade dari menggulung benang hingga membentuk motif tenun tradisional.",
-    avatar: "assets/img/host_rafi_maulana.png",
+    avatar: "assets/img/host_baiq_erwina.png",
     highlights: [
       "Mencoba alat tenun kayu tradisional",
       "Membuat motif songket Sasak",
@@ -36,7 +36,7 @@ const experiences = [
     hostEmail: "baiq@lokallink.id",
     story:
       "Bergabung bersama nelayan lokal melaut di subuh hari dan merasakan kehangatan tradisi Bau Nyale. Dipandu warga pesisir yang memahami pasang surut laut dan kisah legenda Putri Mandalika.",
-    avatar: "assets/img/host_baiq_erwina.png",
+    avatar: "assets/img/host_fajar_hadi.png",
     highlights: [
       "Melaut dengan perahu kayu nelayan",
       "Belajar teknik menjala Nyale",
@@ -53,7 +53,7 @@ const experiences = [
     price: 280000,
     duration: "3 jam",
     image: "assets/img/desaadatende.jpg",
-    host: "Pak Nur Aini, 52 (Petani Sasak)",
+    host: "Nur Aini, 52 (Petani Sasak)",
     hostEmail: "nur@lokallink.id",
     story:
       "Rasakan kehidupan agraris masyarakat lokal Lombok. Ikut turun ke sawah bertani secara tradisional, memetik hasil perkebunan warga, serta memasak hidangan lokal bersama keluarga petani.",

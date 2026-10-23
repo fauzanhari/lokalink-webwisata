@@ -1,7 +1,10 @@
 /* Navigation & Screen Routing */
 
 function renderNavigation() {
-  const nav = authRole === 'host' ? hostNav : travelerNav;
+  let nav = travelerNav;
+  if (authRole === 'host') nav = hostNav;
+  else if (authRole === 'connector') nav = connectorNav;
+
   const mobile = document.getElementById('bottomNav');
   if (mobile) {
     mobile.innerHTML = nav.map(([id, label, icon]) => `
@@ -37,12 +40,16 @@ function goTo(id) {
 
   const allowedTraveler = travelerNav.some(x => x[0] === id) || id === 'saved';
   const allowedHost = hostNav.some(x => x[0] === id);
+  const allowedConnector = connectorNav.some(x => x[0] === id);
 
   if (authRole === 'traveler' && !allowedTraveler) {
     id = 'home';
   }
   if (authRole === 'host' && !allowedHost) {
     id = 'hostDashboard';
+  }
+  if (authRole === 'connector' && !allowedConnector) {
+    id = 'connectorDashboard';
   }
 
   document.querySelectorAll('.screen').forEach(s => {
@@ -65,15 +72,32 @@ function goTo(id) {
 
   if (id === 'home') renderTrending();
   if (id === 'discover') renderDiscover();
+  if (id === 'impact') {
+    if (typeof renderImpact === 'function') renderImpact();
+  }
   if (id === 'bookings') {
     syncBookingRecords();
     renderTravelerBookingsV2();
   }
+  if (id === 'hostDashboard') {
+    if (typeof updateImpersonationBanner === 'function') updateImpersonationBanner();
+  }
   if (id === 'hostBookings') {
     renderHostBookingsV2();
+    if (typeof updateImpersonationBanner === 'function') updateImpersonationBanner();
   }
   if (id === 'hostExperiences') {
     renderHostExperiences();
+    if (typeof updateImpersonationBanner === 'function') updateImpersonationBanner();
+  }
+  if (id === 'connectorDashboard') {
+    if (typeof renderConnectorDashboard === 'function') renderConnectorDashboard();
+  }
+  if (id === 'connectorHosts') {
+    if (typeof renderConnectorHosts === 'function') renderConnectorHosts();
+  }
+  if (id === 'connectorEarnings') {
+    if (typeof renderConnectorEarnings === 'function') renderConnectorEarnings();
   }
   if (id === 'profile') {
     renderProfile();
@@ -84,13 +108,20 @@ function goTo(id) {
 
 function updateStaticLanguage() {
   const user = getUser();
+  let roleTitle = 'Traveler';
+  if (authRole === 'host') {
+    const imp = typeof getImpersonatedHost === 'function' ? getImpersonatedHost() : null;
+    roleTitle = imp ? `Host (${imp.name})` : 'Local Host';
+  } else if (authRole === 'connector') {
+    roleTitle = 'Youth Local Connector';
+  }
+
   const map = {
     '#desktopName': user.name,
-    '#desktopRole': authRole === 'host' ? 'Local Host' : 'Traveler'
+    '#desktopRole': roleTitle
   };
   Object.entries(map).forEach(([sel, val]) => {
     const e = document.querySelector(sel);
     if (e) e.textContent = val;
   });
 }
-

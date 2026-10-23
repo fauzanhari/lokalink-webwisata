@@ -187,6 +187,91 @@
   color: var(--accent);
 }
 
+/* Category Picker in Add Listing Modal */
+.category-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 10px 0 12px;
+}
+
+.cat-picker-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 10px 11px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  user-select: none;
+}
+
+.cat-picker-btn:hover {
+  border-color: var(--accent);
+  background: #fdfaf7;
+}
+
+.cat-picker-btn.active {
+  border-color: var(--accent);
+  background: #fff6ee;
+  box-shadow: 0 2px 8px rgba(199, 92, 40, 0.12);
+}
+
+.cat-picker-btn .cat-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.cat-picker-btn .cat-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.cat-picker-btn strong {
+  font-size: 11px;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.cat-picker-btn.active strong {
+  color: var(--accent);
+}
+
+.cat-picker-btn span {
+  font-size: 9px;
+  color: var(--muted);
+  line-height: 1.25;
+}
+
+.cat-info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #FAF6F0;
+  border-left: 3px solid var(--accent);
+  margin-bottom: 12px;
+  font-size: 11px;
+  color: #554D47;
+  line-height: 1.5;
+}
+
+.cat-info-banner span {
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.cat-info-banner div strong {
+  color: var(--accent);
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

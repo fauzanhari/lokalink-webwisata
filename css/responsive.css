@@ -747,34 +747,59 @@
   }
 }
 
-/* ── FIX: Connector stat grid baseline ─────────────── */
+/* ── FIX: Connector stat grid responsive ─────────────── */
 .connector-stat-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: 18px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+  margin-top: 14px;
+}
+
+@media (min-width: 769px) {
+  .connector-stat-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
 }
 
 .connector-stat {
   background: white;
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 14px;
+  padding: 12px 10px;
   text-align: center;
+  box-shadow: var(--shadow-soft);
 }
 
 .connector-stat strong {
-  font-size: 22px;
+  font-size: 15px;
   font-weight: 800;
-  color: var(--accent);
+  color: var(--text);
   display: block;
+  margin: 3px 0;
+  word-break: break-word;
+}
+
+@media (min-width: 480px) {
+  .connector-stat strong {
+    font-size: 17px;
+  }
 }
 
 .connector-stat span {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--muted);
   display: block;
-  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.connector-stat small {
+  font-size: 8.5px;
+  color: var(--success);
+  font-weight: 700;
+  display: block;
+  margin-top: 2px;
 }
 
 /* ── FIX: Host action grid ─────────────────────────── */

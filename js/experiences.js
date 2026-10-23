@@ -20,15 +20,24 @@ function renderTrending() {
   container.innerHTML = list.length
     ? list
         .map((e) => {
-          const priceText =
-            e.type === "wisata"
-              ? "<strong>Destinasi Wisata</strong><span>Gratis / Bebas</span>"
-              : `<strong>${money(e.price)}</strong><span>/ person</span>`;
-          const tagClass =
-            e.type === "wisata"
-              ? "background:#eef7f1;color:#2f7d55"
-              : "background:#fff5e9;color:#a76015";
-          const tagLabel = e.type === "wisata" ? "Wisata" : "Booking Host";
+          const isWisata = e.type === "wisata";
+          const isKuliner = e.type === "kuliner";
+          const isUsaha  = e.type === "usaha";
+          const priceText = isWisata
+            ? "<strong>Destinasi Wisata</strong><span>Gratis / Bebas</span>"
+            : isKuliner
+            ? `<strong>Mulai ${money(e.price)}</strong><span>/ menu</span>`
+            : isUsaha
+            ? `<strong>Mulai ${money(e.price)}</strong><span>/ produk</span>`
+            : `<strong>${money(e.price)}</strong><span>/ person</span>`;
+          const tagClass = isWisata
+            ? "background:#eef7f1;color:#2f7d55"
+            : isKuliner
+            ? "background:#fff3e0;color:#e07a1e"
+            : isUsaha
+            ? "background:#f0eaff;color:#6b21c8"
+            : "background:#fff5e9;color:#a76015";
+          const tagLabel = isWisata ? "Wisata" : isKuliner ? "🍽️ Kuliner" : isUsaha ? "🏠 Usaha" : "Booking Host";
           return `
       <article class="experience-card" onclick="openDetail('${e.id}')">
         <div class="experience-img"><img src="${e.image}" alt="${escapeHtml(
@@ -78,15 +87,29 @@ function renderDiscover() {
 
   container.innerHTML = list
     .map((e) => {
-      const priceText =
-        e.type === "wisata" ? "Destinasi Wisata" : money(e.price);
-      const tagLabel =
-        e.type === "wisata" ? "📍 Google Maps" : "🤝 Booking Host";
+      const isWisata = e.type === "wisata";
+      const isKuliner = e.type === "kuliner";
+      const isUsaha   = e.type === "usaha";
+      const priceText = isWisata
+        ? "Destinasi Wisata"
+        : isKuliner
+        ? `Mulai ${money(e.price)}`
+        : isUsaha
+        ? `Mulai ${money(e.price)}`
+        : money(e.price);
+      const tagLabel = isWisata
+        ? "📍 Google Maps"
+        : isKuliner
+        ? "🍽️ Kuliner"
+        : isUsaha
+        ? "🏠 Usaha Lokal"
+        : "🤝 Booking Host";
+      const catColor = isKuliner ? '#e07a1e' : isUsaha ? '#6b21c8' : 'var(--primary)';
       return `
       <article class="discover-card" onclick="openDetail('${e.id}')">
         <img src="${e.image}" alt="${escapeHtml(e.title)}">
         <div class="discover-body">
-          <span style="font-size:9px;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px">${escapeHtml(
+          <span style="font-size:9px;font-weight:600;color:${catColor};text-transform:uppercase;letter-spacing:0.5px">${escapeHtml(
             e.category
           )}</span>
           <h3 style="margin-top:2px">${escapeHtml(e.title)}</h3>
@@ -144,14 +167,24 @@ function openDetail(id) {
     hostRoleText.textContent =
       e.type === "wisata"
         ? "Destinasi Wisata Terbuka Umum"
+        : e.type === "kuliner"
+        ? "UMKM Kuliner Lokal · Terverifikasi"
+        : e.type === "usaha"
+        ? "UMKM Usaha Lokal · Terverifikasi"
         : "Local Host · Terverifikasi";
   if (hostAvatar) hostAvatar.src = e.avatar;
   if (detailStoryHeader)
     detailStoryHeader.textContent =
-      e.type === "wisata" ? "Rincian Destinasi" : "Kisah & Pengalaman Host";
+      e.type === "wisata"
+        ? "Rincian Destinasi"
+        : e.type === "kuliner"
+        ? "Tentang UMKM Kuliner Ini"
+        : e.type === "usaha"
+        ? "Tentang Usaha Lokal Ini"
+        : "Kisah & Pengalaman Host";
   if (detailStory) detailStory.textContent = e.story;
 
-  // Google Maps section display
+  // Google Maps section display (wisata only)
   if (mapsSection) {
     mapsSection.style.display = e.type === "wisata" ? "block" : "none";
   }
@@ -159,9 +192,59 @@ function openDetail(id) {
     detailMapsBtn.href = e.mapsUrl;
   }
 
+  // Guide section display (wisata, kuliner & usaha)
+  const guideSection = document.getElementById("guideSection");
+  if (guideSection) {
+    guideSection.style.display = (e.type === "wisata" || e.type === "kuliner" || e.type === "usaha") ? "block" : "none";
+  }
+
+  // Kuliner / Usaha section display
+  const kulinerSection = document.getElementById("kulinerSection");
+  if (kulinerSection) {
+    const showSection = e.type === "kuliner" || e.type === "usaha";
+    kulinerSection.style.display = showSection ? "block" : "none";
+    if (showSection) {
+      const isUsaha = e.type === "usaha";
+      const jamEl       = document.getElementById("kulinerJam");
+      const alamatEl    = document.getElementById("kulinerAlamat");
+      const mapsBtnEl   = document.getElementById("kulinerMapsBtn");
+      const mapsFullBtn = document.getElementById("kulinerMapsFullBtn");
+      const menuEl      = document.getElementById("kulinerMenu");
+      const menuLabel   = document.getElementById("kulinerMenuLabel");
+      const secTitle    = document.getElementById("kulinerSectionTitle");
+
+      if (jamEl) jamEl.textContent = e.duration || "Buka setiap hari";
+      if (alamatEl) alamatEl.textContent = e.location;
+      if (mapsBtnEl && e.mapsUrl) mapsBtnEl.href = e.mapsUrl;
+      if (mapsFullBtn && e.mapsUrl) mapsFullBtn.href = e.mapsUrl;
+      if (secTitle) secTitle.textContent = isUsaha ? "Lokasi & Jam Operasional" : "Lokasi & Jam Buka";
+      if (menuLabel) menuLabel.textContent = isUsaha ? "🛒 Produk & Harga" : "🍽️ Menu Pilihan";
+
+      // Items to render: usaha uses products[], kuliner uses menu[]
+      const items = isUsaha ? (e.products || []) : (e.menu || []);
+      const borderColor = isUsaha ? "#e0d0ff" : "#ffe0b2";
+      const priceColor  = isUsaha ? "#6b21c8" : "#e07a1e";
+      const emptyText   = isUsaha ? "Produk tersedia di toko." : "Menu tersedia di tempat.";
+
+      if (menuEl && items.length) {
+        menuEl.innerHTML = items
+          .map(
+            (m) =>
+              `<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:#fff;border-radius:8px;border:1px solid ${borderColor}">
+                <span style="font-size:12px;color:#3d1a6b">${escapeHtml(m.name)}</span>
+                <strong style="font-size:12px;color:${priceColor}">${money(m.price)}</strong>
+              </div>`
+          )
+          .join("");
+      } else if (menuEl) {
+        menuEl.innerHTML = `<p style="font-size:11px;color:var(--muted)">${emptyText}</p>`;
+      }
+    }
+  }
+
   // Sticky bottom action bar logic
-  if (e.type === "wisata") {
-    // Sembunyikan sticky bar untuk destinasi wisata
+  if (e.type === "wisata" || e.type === "kuliner" || e.type === "usaha") {
+    // Sembunyikan sticky bar untuk destinasi wisata, kuliner, & usaha UMKM
     if (stickyPriceContainer) {
       stickyPriceContainer.innerHTML = "";
     }

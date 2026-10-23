@@ -85,22 +85,106 @@
   </div>
 </div>
 
-<!-- Add experience modal -->
+<!-- Add listing modal -->
 <div class="modal" id="experienceModal" onclick="if(event.target===this)closeExperienceForm()">
   <div class="sheet">
     <div class="handle"></div>
-    <div class="sheet-head"><h2>Add Experience</h2><button class="close" onclick="closeExperienceForm()">×</button></div>
-    <p style="font-size:11px;color:var(--muted);line-height:1.6">Create a bookable local experience for travelers.</p>
-    <div class="form-grid">
-      <div class="form-group full"><label>EXPERIENCE NAME</label><input id="expTitle" class="field" type="text" placeholder="e.g. Sasak Cooking with Grandma"></div>
-      <div class="form-group"><label>CATEGORY</label><select id="expCategory" class="field"><option>Local Experience</option><option>Destination</option></select></div>
-      <div class="form-group"><label>PRICE / PERSON</label><input id="expPrice" class="field" type="number" min="0" placeholder="300000"></div>
-      <div class="form-group"><label>LOCATION</label><input id="expLocation" class="field" type="text" placeholder="Sade Village"></div>
-      <div class="form-group"><label>DURATION</label><input id="expDuration" class="field" type="text" placeholder="3 hours"></div>
-      <div class="form-group full"><label>IMAGE URL</label><input id="expImage" class="field" type="url" placeholder="https://images.unsplash.com/..."></div>
-      <div class="form-group full"><label>DESCRIPTION / MY STORY</label><textarea id="expStory" class="field" style="height:95px;padding-top:12px;resize:none" placeholder="Tell travelers what makes your experience special..."></textarea></div>
+    <div class="sheet-head"><h2 id="modalAddTitle">Add</h2><button class="close" onclick="closeExperienceForm()">×</button></div>
+    <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:8px">Pilih kategori listing yang ingin Anda tambahkan dan lengkapi rinciannya.</p>
+    
+    <!-- Category Selector Grid -->
+    <input type="hidden" id="expCategoryType" value="pengalaman" />
+    <select id="expCategory" style="display:none">
+      <option value="Local Experience">Local Experience</option>
+      <option value="Destination">Destination</option>
+      <option value="Kuliner Khas">Kuliner Khas</option>
+      <option value="Usaha Lokal">Usaha Lokal</option>
+    </select>
+
+    <div class="category-picker-grid">
+      <button type="button" class="cat-picker-btn active" data-cat-type="pengalaman" onclick="selectAddCategory('pengalaman')">
+        <div class="cat-top">
+          <span class="cat-icon">🤝</span>
+          <strong>Pengalaman</strong>
+        </div>
+        <span>Tur & aktivitas lokal</span>
+      </button>
+      <button type="button" class="cat-picker-btn" data-cat-type="wisata" onclick="selectAddCategory('wisata')">
+        <div class="cat-top">
+          <span class="cat-icon">📍</span>
+          <strong>Wisata</strong>
+        </div>
+        <span>Spot alam & budaya</span>
+      </button>
+      <button type="button" class="cat-picker-btn" data-cat-type="kuliner" onclick="selectAddCategory('kuliner')">
+        <div class="cat-top">
+          <span class="cat-icon">🍽️</span>
+          <strong>Kuliner</strong>
+        </div>
+        <span>Warung & kafe lokal</span>
+      </button>
+      <button type="button" class="cat-picker-btn" data-cat-type="usaha" onclick="selectAddCategory('usaha')">
+        <div class="cat-top">
+          <span class="cat-icon">🏠</span>
+          <strong>Usaha Lokal</strong>
+        </div>
+        <span>Kerajinan & oleh-oleh</span>
+      </button>
     </div>
-    <button class="btn btn-primary btn-block" style="margin-top:14px" onclick="createExperience()">Publish Experience</button>
+
+    <!-- Dynamic Info Banner -->
+    <div id="catInfoBanner" class="cat-info-banner">
+      <span>🤝</span>
+      <div><strong>Pengalaman Lokal:</strong> Aktivitas berbayar yang dipandu langsung oleh host lokal dan dapat dibooking oleh wisatawan.</div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group full">
+        <label id="lblExpTitle">NAMA PENGALAMAN / TUR</label>
+        <input id="expTitle" class="field" type="text" placeholder="e.g. Menenun Kain Songket Sasak Tradisional">
+      </div>
+      <div class="form-group" id="grpExpPrice">
+        <label id="lblExpPrice">HARGA / ORANG (RP)</label>
+        <input id="expPrice" class="field" type="number" min="0" placeholder="320000">
+        <small id="hintExpPrice" style="font-size:9px;color:var(--muted);display:block;margin-top:4px">Tarif per wisatawan untuk booking langsung</small>
+      </div>
+      <div class="form-group" id="grpExpDuration">
+        <label id="lblExpDuration">DURASI AKTIVITAS</label>
+        <input id="expDuration" class="field" type="text" placeholder="e.g. 2.5 jam">
+      </div>
+      <div class="form-group full" id="grpExpLocation">
+        <label id="lblExpLocation">LOKASI / DESA</label>
+        <input id="expLocation" class="field" type="text" placeholder="e.g. Desa Adat Sade, Lombok Tengah">
+      </div>
+      <div class="form-group full" id="grpExpMaps" style="display:none">
+        <label id="lblExpMaps">LINK GOOGLE MAPS (UNTUK NAVIGASI)</label>
+        <input id="expMapsUrl" class="field" type="url" placeholder="https://maps.google.com/?query=...">
+        <small style="font-size:9px;color:var(--muted);display:block;margin-top:4px">Wisatawan dapat membuka rute langsung ke lokasi lewat Google Maps</small>
+      </div>
+      <div class="form-group full" id="grpExpHighlights">
+        <label id="lblExpHighlights">HIGHLIGHT AKTIVITAS (PISAHKAN KOMA / ENTER)</label>
+        <textarea id="expHighlights" class="field" style="height:60px;padding-top:8px;resize:none" placeholder="e.g. Mencoba alat tenun tradisional, Membuat motif Sasak, Bawa pulang hasil karya"></textarea>
+      </div>
+      <div class="form-group full" id="grpExpMenu" style="display:none">
+        <label id="lblExpMenu">DAFTAR MENU & HARGA (1 PER BARIS: MENU: HARGA)</label>
+        <textarea id="expMenu" class="field" style="height:75px;padding-top:8px;resize:none" placeholder="Ayam Taliwang Bakar: 45000&#10;Plecing Kangkung: 15000&#10;Es Kelapa Muda: 12000"></textarea>
+        <small style="font-size:9px;color:var(--muted);display:block;margin-top:4px">Format: Nama Menu: Harga (contoh: Ayam Taliwang: 45000)</small>
+      </div>
+      <div class="form-group full" id="grpExpProducts" style="display:none">
+        <label id="lblExpProducts">KATALOG PRODUK & HARGA (1 PER BARIS: PRODUK: HARGA)</label>
+        <textarea id="expProducts" class="field" style="height:75px;padding-top:8px;resize:none" placeholder="Kain Tenun Sutra: 250000&#10;Selendang Tenun Sasak: 120000&#10;Tas Anyaman Etnik: 75000"></textarea>
+        <small style="font-size:9px;color:var(--muted);display:block;margin-top:4px">Format: Nama Produk: Harga (contoh: Kain Tenun: 250000)</small>
+      </div>
+      <div class="form-group full">
+        <label id="lblExpImage">URL FOTO / GAMBAR UTAMA</label>
+        <input id="expImage" class="field" type="url" placeholder="https://images.unsplash.com/... (Kosongkan untuk foto default)">
+      </div>
+      <div class="form-group full">
+        <label id="lblExpStory">KISAH & PENGALAMAN HOST</label>
+        <textarea id="expStory" class="field" style="height:85px;padding-top:10px;resize:none" placeholder="Ceritakan keunikan aktivitas dan apa yang akan dinikmati wisatawan..."></textarea>
+      </div>
+    </div>
+    <button id="btnSubmitExp" class="btn btn-primary btn-block" style="margin-top:14px" onclick="createExperience()">Publikasikan Pengalaman</button>
   </div>
 </div>
 
@@ -143,6 +227,50 @@
     <div class="handle"></div>
     <div class="sheet-head"><h2>Booking Details</h2><button class="close" onclick="closeBookingDetail()">×</button></div>
     <div id="bookingDetailContent"></div>
+  </div>
+</div>
+
+<!-- Guide Hire Modal -->
+<div class="modal" id="guideModal" onclick="if(event.target===this)closeGuideModal()">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div class="sheet-head">
+      <h2>🧭 Sewa Guide Lokal</h2>
+      <button class="close" onclick="closeGuideModal()">×</button>
+    </div>
+    <p style="font-size:11px;color:var(--muted);line-height:1.65;margin-bottom:14px">
+      Guide lokal kami siap menemani perjalanan wisata Anda ke <strong id="guideDestName">destinasi ini</strong>. Isi data di bawah dan kami akan segera menghubungi Anda.
+    </p>
+    <div class="form-group">
+      <label for="guideName">NAMA LENGKAP</label>
+      <input id="guideName" class="field" type="text" placeholder="cth. Fauzan Hari">
+    </div>
+    <div class="form-group">
+      <label for="guidePhone">NOMOR TELEPON / WA</label>
+      <input id="guidePhone" class="field" type="tel" placeholder="cth. 0812-3456-7890">
+    </div>
+    <div class="form-group">
+      <label for="guideDate">TANGGAL KUNJUNGAN</label>
+      <input id="guideDate" class="field" type="date">
+    </div>
+    <div class="form-group">
+      <label for="guideParty">JUMLAH ORANG</label>
+      <select id="guideParty" class="field">
+        <option>1 orang</option>
+        <option selected>2 orang</option>
+        <option>3 orang</option>
+        <option>4 orang</option>
+        <option>5+ orang</option>
+      </select>
+    </div>
+    <div style="background:#fffbf0;border:1px solid #f0d98a;border-radius:10px;padding:12px;margin-bottom:14px">
+      <p style="font-size:11px;color:#7a5a00;margin:0;line-height:1.6">
+        💰 <strong>Biaya guide mulai Rp 75.000 – 150.000/jam</strong>, tergantung durasi & jumlah orang. Pembayaran langsung ke guide lokal.
+      </p>
+    </div>
+    <button class="btn btn-block" style="background:linear-gradient(135deg,#c8961e,#e8b830);color:#fff;font-weight:700;font-size:13px;padding:13px;border:none;border-radius:12px;cursor:pointer;box-shadow:0 4px 12px rgba(200,150,30,0.3)" onclick="confirmGuideRequest()">
+      Kirim Permintaan Guide
+    </button>
   </div>
 </div>
 

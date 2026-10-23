@@ -29,6 +29,12 @@ document.addEventListener('DOMContentLoaded', function () {
   localStorage.removeItem('lokallink_logged_in');
   localStorage.removeItem('lokallink_role');
   localStorage.removeItem('lokallink_email');
+  localStorage.removeItem('lokallink_impersonating_host');
+
+  // Pre-seed assisted hosts for Youth Local Connector
+  if (typeof getAssistedHosts === 'function') {
+    getAssistedHosts();
+  }
 
   // Always show the login gate after loading screen
   if (authGate) authGate.style.display = 'flex';
@@ -53,6 +59,9 @@ document.addEventListener('DOMContentLoaded', function () {
   renderProfile();
   renderSaved();
   renderHostExperiences();
+  if (typeof renderConnectorDashboard === 'function') renderConnectorDashboard();
+  if (typeof renderConnectorHosts === 'function') renderConnectorHosts();
+  if (typeof renderConnectorEarnings === 'function') renderConnectorEarnings();
 
   // Safety fallback for splash overlay pointer events
   setTimeout(() => {
@@ -67,6 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const a = t.dataset.action;
     if (a === 'host-bookings') hostViewAllBookings();
     if (a === 'host-experiences') hostManageExperiences();
-    if (a === 'add-experience') openExperienceForm();
+    if (a === 'add-experience' || a === 'add' || a === 'add-listing') openExperienceForm();
   });
 });

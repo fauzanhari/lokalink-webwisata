@@ -87,6 +87,12 @@
               onclick="selectAuthRole('host')">
               Local Host
             </button>
+            <button
+              class="auth-tab"
+              id="connectorTab"
+              onclick="selectAuthRole('connector')">
+              Youth Connector
+            </button>
           </div>
 
           <div class="auth-field">
@@ -111,8 +117,8 @@
             Continue as <span id="loginRoleLabel">Traveler</span>
           </button>
 
-          <p class="auth-note">
-            langsung klik button di atas untuk mencoba simulasi
+          <p class="auth-note" style="margin-top: 10px">
+            Pilih role atau klik tombol demo di atas untuk mencoba simulasi
           </p>
         </div>
       </div>
@@ -215,6 +221,18 @@
               onclick="setCategory('Destinasi Wisata')">
               Destination
             </button>
+            <button
+              class="chip"
+              data-cat="Kuliner Khas"
+              onclick="setCategory('Kuliner Khas')">
+              Kuliner 
+            </button>
+            <button
+              class="chip"
+              data-cat="Usaha Lokal"
+              onclick="setCategory('Usaha Lokal')">
+              Usaha Lokal
+            </button>
           </div>
         </div>
 
@@ -301,6 +319,18 @@
             onclick="setDiscoverCategory('Destinasi Wisata')">
             Destination
           </button>
+          <button
+            class="chip"
+            data-cat="Kuliner Khas"
+            onclick="setDiscoverCategory('Kuliner Khas')">
+            Kuliner
+          </button>
+          <button
+            class="chip"
+            data-cat="Usaha Lokal"
+            onclick="setDiscoverCategory('Usaha Lokal')">
+            Usaha Lokal
+          </button>
         </div>
 
         <div id="discoverGrid" class="discover-grid"></div>
@@ -318,77 +348,95 @@
       <!-- IMPACT SCREEN -->
       <main id="impact" class="screen">
         <div class="page-title">
-          <h1>Impact Tracking</h1>
-          <p>See how your travel contributes to local communities.</p>
+          <h1>Dampak Perjalanan Saya</h1>
+          <p>Setiap booking Anda mendukung ekonomi warga lokal Lombok secara langsung.</p>
         </div>
 
         <div class="impact-wrap">
-          <div class="impact-hero">
-            <p>Your direct local contribution</p>
-            <div class="impact-value" id="impactValue">Rp 1.380.000</div>
-            <small>estimated spending routed through local experiences</small>
+
+          <!-- HERO: Total Kontribusi -->
+          <div class="impact-hero" id="impactHeroBox">
+            <p style="font-size:11px;opacity:.85;margin-bottom:4px">Total kontribusi Anda ke komunitas lokal</p>
+            <div class="impact-value" id="impactValue">Rp 0</div>
+            <small id="impactSubtitle">dari 0 booking yang tercatat</small>
           </div>
 
+          <!-- GRID STATS: 4 angka ringkas -->
           <div class="impact-grid">
             <div class="impact-stat">
-              <div class="ico">♡</div>
-              <strong id="impactHosts">3</strong>
-              <span>Local hosts supported</span>
+              <div class="ico">🤝</div>
+              <strong id="impactHosts">0</strong>
+              <span>Host lokal<br>didukung</span>
             </div>
             <div class="impact-stat">
-              <div class="ico">⌂</div>
-              <strong id="impactTrips">3</strong>
-              <span>Experiences completed</span>
+              <div class="ico">🎒</div>
+              <strong id="impactTrips">0</strong>
+              <span>Pengalaman<br>dipesan</span>
             </div>
             <div class="impact-stat">
-              <div class="ico">◎</div>
-              <strong>7</strong>
-              <span>Community activities</span>
+              <div class="ico">🧭</div>
+              <strong id="impactGuides">0</strong>
+              <span>Guide lokal<br>disewa</span>
             </div>
             <div class="impact-stat">
-              <div class="ico">✦</div>
-              <strong>12</strong>
-              <span>Local stories discovered</span>
+              <div class="ico">🍽️</div>
+              <strong id="impactUMKM">0</strong>
+              <span>UMKM lokal<br>dikunjungi</span>
             </div>
           </div>
 
-          <div class="impact-card">
-            <h3>Where your spending goes</h3>
-            <div class="progress-row">
-              <div class="progress-label">
-                <span>Local host</span><strong>70%</strong>
-              </div>
-              <div class="bar"><i style="width: 70%"></i></div>
-            </div>
-            <div class="progress-row">
-              <div class="progress-label">
-                <span>Local connector</span><strong>15%</strong>
-              </div>
-              <div class="bar"><i style="width: 15%"></i></div>
-            </div>
-            <div class="progress-row">
-              <div class="progress-label">
-                <span>Community activities</span><strong>15%</strong>
-              </div>
-              <div class="bar"><i style="width: 15%"></i></div>
+          <!-- BREAKDOWN KATEGORI -->
+          <div class="impact-card" id="impactBreakdownCard">
+            <h3 style="margin-bottom:12px">Rincian per Kategori</h3>
+            <div id="impactBreakdown" style="display:flex;flex-direction:column;gap:10px">
+              <!-- Filled by JS -->
             </div>
           </div>
 
-          <div class="impact-card">
-            <h3>Local stories</h3>
-            <p style="font-size: 11px; color: var(--muted); line-height: 1.65">
-              Every experience is connected to a local host and community.
-              LokaLink is designed to make the economic contribution visible
-              instead of treating local participation as an invisible part of
-              the trip.
+          <!-- RIWAYAT BOOKING TERBARU -->
+          <div class="impact-card" id="impactHistoryCard">
+            <h3 style="margin-bottom:12px">Riwayat Booking</h3>
+            <div id="impactHistory" style="display:flex;flex-direction:column;gap:8px">
+              <!-- Filled by JS -->
+            </div>
+            <button
+              onclick="goTo('bookings')"
+              style="margin-top:12px;width:100%;background:none;border:1.5px solid var(--primary);color:var(--primary);border-radius:10px;padding:10px;font-weight:600;font-size:12px;cursor:pointer">
+              Lihat Semua Booking →
+            </button>
+          </div>
+
+          <!-- EMPTY STATE (shown when no bookings) -->
+          <div id="impactEmpty" style="display:none;text-align:center;padding:40px 20px">
+            <div style="font-size:48px;margin-bottom:12px">🌱</div>
+            <h3 style="color:var(--text);margin-bottom:8px">Mulai Perjalanan Lokal Anda!</h3>
+            <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:16px">
+              Belum ada booking tercatat. Pesan pengalaman lokal pertama Anda dan lihat dampak nyata yang Anda berikan ke komunitas Lombok.
             </p>
+            <button onclick="goTo('discover')" class="btn btn-primary" style="padding:12px 24px">
+              Jelajahi Pengalaman Lokal
+            </button>
           </div>
+
         </div>
       </main>
 
       <!-- HOST DASHBOARD SCREEN -->
       <main id="hostDashboard" class="screen">
         <div class="dashboard-wrap">
+          <!-- Impersonation Banner for Youth Local Connector -->
+          <div id="impersonationBanner" class="impersonation-banner" style="display: none">
+            <div class="impersonation-inner">
+              <div class="impersonation-meta">
+                <span class="impersonation-tag">⚡ MODE PENDAMPING (YOUTH CONNECTOR)</span>
+                <p>Anda sedang mengelola akun host: <strong id="impersonationHostName">Inaq Siti</strong></p>
+              </div>
+              <button class="btn-return-connector" onclick="exitHostImpersonation()">
+                Kembali ke Dashboard Connector ➔
+              </button>
+            </div>
+          </div>
+
           <div class="welcome-row">
             <div>
               <h1 style="margin-top: 10px">Good Morning, Mr Host 👋</h1>
@@ -496,8 +544,8 @@
                 <div class="host-action-grid">
                   <button class="action-tile" onclick="openExperienceForm()">
                     <div class="tile-icon">＋</div>
-                    <strong>Add Experience</strong
-                    ><span>Create a new local activity.</span>
+                    <strong>Add</strong>
+                    <span>Tambah pengalaman, wisata, kuliner, atau usaha.</span>
                   </button>
                   <button class="action-tile" onclick="hostViewAllBookings()">
                     <div class="tile-icon">▣</div>
@@ -511,10 +559,10 @@
                   </button>
                   <button
                     class="action-tile"
-                    onclick="showToast('Youth Connector workspace opened.')">
+                    onclick="if(typeof getImpersonatedHost === 'function' && getImpersonatedHost()){exitHostImpersonation();}else{authRole='connector';localStorage.setItem('lokallink_role','connector');applyRoleUI();goTo('connectorDashboard');showToast('Membuka Youth Connector Hub.');}">
                     <div class="tile-icon">↗</div>
-                    <strong>Youth Connector</strong
-                    ><span>Coordinate local tourism.</span>
+                    <strong>Youth Connector</strong>
+                    <span>Hubungkan & dampingi host.</span>
                   </button>
                 </div>
               </div>
@@ -557,7 +605,7 @@
                 class="btn btn-primary"
                 style="min-height: 35px; font-size: 9px"
                 onclick="openExperienceForm()">
-                + Add Experience
+                + Add
               </button>
             </div>
             <div class="host-row">
@@ -598,42 +646,128 @@
 
       <main id="hostImpact" class="screen">
         <div class="page-title">
-          <h1>Host Impact</h1>
-          <p>
-            Track income and the local economic contribution generated by your
-            experiences.
-          </p>
+          <h1>Dampak Host Saya</h1>
+          <p>Lacak pendapatan dan kontribusi ekonomi lokal dari pengalaman yang Anda tawarkan.</p>
         </div>
         <div class="impact-wrap">
-          <div class="impact-hero">
-            <p>Income routed to your community</p>
+
+          <!-- HERO: Total Pendapatan -->
+          <div class="impact-hero" style="background: linear-gradient(135deg, #1b4332 0%, #2f7d55 60%, #40916c 100%);">
+            <p style="font-size:11px;opacity:.85;margin-bottom:4px">Total pendapatan diteruskan ke komunitas lokal</p>
             <div class="impact-value">Rp 8.460.000</div>
-            <small>This month · 24 confirmed bookings</small>
+            <small>Bulan ini · 24 booking terkonfirmasi</small>
           </div>
-          <div class="impact-stat">
-            <strong>18 families</strong
-            ><span>Local households indirectly supported</span>
+
+          <!-- GRID STATS: 4 angka ringkas -->
+          <div class="impact-grid">
+            <div class="impact-stat">
+              <div class="ico">🧳</div>
+              <strong>24</strong>
+              <span>Booking<br>terkonfirmasi</span>
+            </div>
+            <div class="impact-stat">
+              <div class="ico">🌍</div>
+              <strong>38</strong>
+              <span>Wisatawan<br>dilayani</span>
+            </div>
+            <div class="impact-stat">
+              <div class="ico">🏡</div>
+              <strong>18</strong>
+              <span>Keluarga lokal<br>didukung</span>
+            </div>
+            <div class="impact-stat">
+              <div class="ico">🍽️</div>
+              <strong>7</strong>
+              <span>UMKM lokal<br>terbantu</span>
+            </div>
           </div>
-          <div class="impact-stat">
-            <strong>7</strong><span>Community activities funded</span>
-          </div>
+
+          <!-- BREAKDOWN PENDAPATAN PER KATEGORI -->
           <div class="impact-card">
-            <h3>Monthly activity</h3>
-            <div class="progress-row">
-              <div class="progress-label">
-                <span>Experience bookings</span><strong>84%</strong>
+            <h3 style="margin-bottom:12px">Rincian Pendapatan per Kategori</h3>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="progress-row">
+                <div class="progress-label">
+                  <span>🎭 Pengalaman Lokal</span><strong>Rp 4.600.000</strong>
+                </div>
+                <div class="bar"><i style="width:54%"></i></div>
               </div>
-              <div class="bar"><i style="width: 84%"></i></div>
-            </div>
-            <div class="progress-row">
-              <div class="progress-label">
-                <span>Community contribution</span><strong>70%</strong>
+              <div class="progress-row">
+                <div class="progress-label">
+                  <span>🏪 Usaha Lokal</span><strong>Rp 2.460.000</strong>
+                </div>
+                <div class="bar"><i style="width:29%"></i></div>
               </div>
-              <div class="bar"><i style="width: 70%"></i></div>
+              <div class="progress-row">
+                <div class="progress-label">
+                  <span>🍽️ Kuliner Khas</span><strong>Rp 1.400.000</strong>
+                </div>
+                <div class="bar"><i style="width:17%"></i></div>
+              </div>
             </div>
           </div>
+
+          <!-- AKTIVITAS BULANAN -->
+          <div class="impact-card">
+            <h3 style="margin-bottom:12px">Aktivitas Bulanan</h3>
+            <div class="progress-row">
+              <div class="progress-label">
+                <span>Tingkat pengisian booking</span><strong>84%</strong>
+              </div>
+              <div class="bar"><i style="width:84%"></i></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-label">
+                <span>Kontribusi ke komunitas lokal</span><strong>70%</strong>
+              </div>
+              <div class="bar"><i style="width:70%"></i></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-label">
+                <span>Kepuasan wisatawan (rating)</span><strong>98%</strong>
+              </div>
+              <div class="bar"><i style="width:98%"></i></div>
+            </div>
+          </div>
+
+          <!-- DAMPAK KOMUNITAS -->
+          <div class="impact-card" style="background:linear-gradient(135deg,#f0faf4,#e6f4ec);border:1.5px solid #b7dfc8;">
+            <h3 style="margin-bottom:8px;color:#1b4332">🌱 Dampak Komunitas Lokal</h3>
+            <p style="font-size:12px;color:#3a6b50;line-height:1.7;margin-bottom:14px">
+              Pengalaman yang Anda tawarkan telah menggerakkan roda ekonomi warga Lombok secara langsung — dari pengrajin tenun, nelayan, petani, hingga pedagang kuliner lokal.
+            </p>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;padding:10px 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+                <div style="font-size:22px">🧶</div>
+                <div>
+                  <strong style="font-size:13px;color:#1b4332">Pengrajin Tenun Desa Sade</strong>
+                  <p style="font-size:11px;color:#3a6b50;margin:0">3 pengrajin mendapat pesanan langsung dari wisatawan</p>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;padding:10px 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+                <div style="font-size:22px">🐟</div>
+                <div>
+                  <strong style="font-size:13px;color:#1b4332">Nelayan Lokal Pantai Seger</strong>
+                  <p style="font-size:11px;color:#3a6b50;margin:0">2 nelayan terlibat dalam tur wisata bahari</p>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;padding:10px 12px;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+                <div style="font-size:22px">🍢</div>
+                <div>
+                  <strong style="font-size:13px;color:#1b4332">UMKM Kuliner Kuta Mandalika</strong>
+                  <p style="font-size:11px;color:#3a6b50;margin:0">7 warung makan mendapat kunjungan rutin dari wisatawan</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </main>
+
+      <!-- YOUTH LOCAL CONNECTOR SCREENS -->
+      <main id="connectorDashboard" class="screen"></main>
+      <main id="connectorHosts" class="screen"></main>
+      <main id="connectorEarnings" class="screen"></main>
 
       <!-- PROFILE SCREEN -->
       <main id="profile" class="screen"></main>
@@ -802,6 +936,117 @@
                   d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
                 <circle cx="12" cy="9" r="2.5" />
               </svg>
+              Buka di Google Maps
+            </a>
+          </div>
+
+          <!-- Guide Section (Appears for Destinasi Wisata) -->
+          <div
+            id="guideSection"
+            style="
+              display: none;
+              margin-top: 14px;
+              background: linear-gradient(135deg, #fffbf0 0%, #fff8e6 100%);
+              padding: 16px;
+              border-radius: 14px;
+              border: 1px solid #f0d98a;
+            ">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <div style="width:36px;height:36px;border-radius:50%;background:#c8961e;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="8" r="4"/>
+                  <path d="M4 21c.7-4.2 3.2-6.3 8-6.3s7.3 2.1 8 6.3"/>
+                </svg>
+              </div>
+              <div>
+                <h4 style="margin:0;font-size:14px;color:#7a5a00;font-weight:700">Do you need a guide?</h4>
+                <span style="font-size:11px;color:#a07820">Jelajahi lebih dalam bersama guide lokal berpengetahuan</span>
+              </div>
+            </div>
+            <p style="font-size:12px;color:#6b5000;line-height:1.6;margin-bottom:14px">
+              Guide lokal kami adalah warga setempat yang memahami sejarah, budaya, dan cerita tersembunyi di balik setiap sudut destinasi. Pengalaman wisata Anda akan jauh lebih berkesan!
+            </p>
+            <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;background:#fff9e8;border-radius:10px;padding:10px">
+              <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#5a4200">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#c8961e" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>
+                Pengetahuan mendalam tentang budaya &amp; sejarah lokal
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#5a4200">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#c8961e" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>
+                Tarif terjangkau, langsung dukung warga lokal
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#5a4200">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#c8961e" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>
+                Tersedia dalam Bahasa Indonesia &amp; Inggris
+              </div>
+            </div>
+            <button
+              onclick="hireGuide()"
+              style="
+                width:100%;
+                background:linear-gradient(135deg,#c8961e,#e8b830);
+                color:#fff;
+                font-weight:700;
+                font-size:13px;
+                padding:13px;
+                border:none;
+                border-radius:12px;
+                cursor:pointer;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                gap:8px;
+                box-shadow:0 4px 12px rgba(200,150,30,0.3);
+              ">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 21c.7-4.2 3.2-6.3 8-6.3s7.3 2.1 8 6.3"/>
+              </svg>
+              Sewa Guide Lokal
+            </button>
+          </div>
+
+          <!-- Kuliner / Usaha Section (Appears for Kuliner Khas & Usaha Lokal) -->
+          <div
+            id="kulinerSection"
+            style="
+              display: none;
+              margin-top: 14px;
+              background: linear-gradient(135deg, #fff8f0 0%, #fff3e6 100%);
+              padding: 16px;
+              border-radius: 14px;
+              border: 1px solid #ffd8a8;
+            ">
+            <!-- Jam Buka & Alamat -->
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+              <div id="kulinerSectionIcon" style="width:36px;height:36px;border-radius:50%;background:#e07a1e;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              </div>
+              <div>
+                <h4 id="kulinerSectionTitle" style="margin:0;font-size:14px;color:#7a3a00;font-weight:700">Lokasi & Jam Buka</h4>
+                <span id="kulinerJam" style="font-size:11px;color:#a05010">Buka setiap hari</span>
+              </div>
+            </div>
+            <p id="kulinerAlamat" style="font-size:12px;color:#6b3500;line-height:1.5;margin-bottom:10px;font-weight:500"></p>
+            <a id="kulinerMapsBtn" href="#" target="_blank"
+              style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:#e07a1e;text-decoration:none;margin-bottom:14px">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>
+              Lihat di Google Maps
+            </a>
+
+            <!-- Menu / Produk List (dynamically labeled) -->
+            <div style="margin-bottom:14px">
+              <h4 id="kulinerMenuLabel" style="font-size:12px;font-weight:700;color:#7a3a00;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">🍽️ Menu Pilihan</h4>
+              <div id="kulinerMenu" style="display:flex;flex-direction:column;gap:6px">
+                <!-- Filled by JS -->
+              </div>
+            </div>
+
+            <!-- Maps Full Button -->
+            <a id="kulinerMapsFullBtn" href="#" target="_blank"
+              class="btn btn-block"
+              style="display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;padding:12px;font-weight:600;background:#e07a1e;border-radius:12px;color:#fff;margin-bottom:10px">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
               Buka di Google Maps
             </a>
           </div>
@@ -1008,7 +1253,149 @@
         </div>
       </div>
 
-      <!-- Add experience modal -->
+      <!-- How To Use Modal -->
+      <div
+        class="modal"
+        id="howToUseModal"
+        onclick="if(event.target===this)closeHowToUse()">
+        <div class="sheet" style="max-height:92dvh;overflow-y:auto">
+          <div class="handle"></div>
+          <div class="sheet-head">
+            <div>
+              <span style="font-size:9px;color:var(--primary);font-weight:800;letter-spacing:.6px;text-transform:uppercase">Panduan Pengguna</span>
+              <h2 style="margin:2px 0 0">Cara Pakai LokaLink</h2>
+            </div>
+            <button class="close" onclick="closeHowToUse()">×</button>
+          </div>
+          <p style="font-size:11px;color:var(--muted);line-height:1.65;margin-bottom:16px">
+            LokaLink menghubungkan Anda langsung dengan warga lokal Lombok — mulai dari pengalaman budaya, destinasi wisata, kuliner khas, hingga UMKM dan kerajinan tangan.
+          </p>
+
+          <!-- Traveler Guide -->
+          <div style="margin-bottom:18px">
+            <h3 style="font-size:13px;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px">
+              <span style="width:28px;height:28px;background:#2f7d55;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px">🎒</span>
+              Untuk Traveler
+            </h3>
+            <div style="display:flex;flex-direction:column;gap:8px;padding-left:8px">
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <div style="width:24px;height:24px;background:#eef7f1;color:#2f7d55;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</div>
+                <div>
+                  <strong style="font-size:12px;color:var(--text)">Jelajahi Pengalaman</strong>
+                  <p style="font-size:11px;color:var(--muted);margin:2px 0 0;line-height:1.5">Buka tab <em>Discover</em> lalu pilih kategori: Local Experience, Destination, Kuliner, atau Usaha Lokal.</p>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <div style="width:24px;height:24px;background:#eef7f1;color:#2f7d55;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</div>
+                <div>
+                  <strong style="font-size:12px;color:var(--text)">Lihat Detail & Booking</strong>
+                  <p style="font-size:11px;color:var(--muted);margin:2px 0 0;line-height:1.5">Klik kartu untuk melihat cerita host, lokasi Maps, daftar menu/produk, lalu tekan <em>Booking Host</em> untuk memesan.</p>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <div style="width:24px;height:24px;background:#eef7f1;color:#2f7d55;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</div>
+                <div>
+                  <strong style="font-size:12px;color:var(--text)">Sewa Guide Lokal (Opsional)</strong>
+                  <p style="font-size:11px;color:var(--muted);margin:2px 0 0;line-height:1.5">Di halaman Destinasi, Kuliner, atau Usaha — tekan <em>Sewa Guide Lokal</em>, pilih guide, isi detail, lalu kirim permintaan.</p>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <div style="width:24px;height:24px;background:#eef7f1;color:#2f7d55;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">4</div>
+                <div>
+                  <strong style="font-size:12px;color:var(--text)">Cek Dampak Anda</strong>
+                  <p style="font-size:11px;color:var(--muted);margin:2px 0 0;line-height:1.5">Buka tab <em>Impact</em> untuk melihat total kontribusi rupiah Anda ke ekonomi lokal dan rincian per kategori.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid var(--line);margin:0 -16px;padding:0 16px"></div>
+
+          <!-- Host Guide -->
+          <div style="margin:18px 0">
+            <h3 style="font-size:13px;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px">
+              <span style="width:28px;height:28px;background:#c8961e;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px">🏡</span>
+              Untuk Local Host
+            </h3>
+            <div style="display:flex;flex-direction:column;gap:8px;padding-left:8px">
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <div style="width:24px;height:24px;background:#fff8e6;color:#c8961e;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</div>
+                <div>
+                  <strong style="font-size:12px;color:var(--text)">Login sebagai Host</strong>
+                  <p style="font-size:11px;color:var(--muted);margin:2px 0 0;line-height:1.5">Pilih role <em>Local Host</em> saat login untuk mengakses Dashboard Host.</p>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <div style="width:24px;height:24px;background:#fff8e6;color:#c8961e;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</div>
+                <div>
+                  <strong style="font-size:12px;color:var(--text)">Kelola Booking Masuk</strong>
+                  <p style="font-size:11px;color:var(--muted);margin:2px 0 0;line-height:1.5">Di <em>Bookings</em>, lihat pesanan traveler → konfirmasi atau tolak. Termasuk pesanan guide lokal.</p>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <div style="width:24px;height:24px;background:#fff8e6;color:#c8961e;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</div>
+                <div>
+                  <strong style="font-size:12px;color:var(--text)">Tambah Pengalaman Baru</strong>
+                  <p style="font-size:11px;color:var(--muted);margin:2px 0 0;line-height:1.5">Buat listing pengalaman baru di <em>Experiences</em> untuk ditampilkan ke traveler.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid var(--line);margin:0 -16px;padding:0 16px"></div>
+
+          <!-- Connector Guide -->
+          <div style="margin-top:18px;margin-bottom:10px">
+            <h3 style="font-size:13px;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px">
+              <span style="width:28px;height:28px;background:#1565c0;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px">⚡</span>
+              Untuk Youth Connector
+            </h3>
+            <div style="display:flex;flex-direction:column;gap:8px;padding-left:8px">
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <div style="width:24px;height:24px;background:#e8f0ff;color:#1565c0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</div>
+                <div>
+                  <strong style="font-size:12px;color:var(--text)">Daftarkan Host Baru</strong>
+                  <p style="font-size:11px;color:var(--muted);margin:2px 0 0;line-height:1.5">Bantu warga lokal (tetua, pengrajin, nelayan) yang belum melek digital mendaftarkan pengalaman mereka.</p>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <div style="width:24px;height:24px;background:#e8f0ff;color:#1565c0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</div>
+                <div>
+                  <strong style="font-size:12px;color:var(--text)">Kelola Akun Host</strong>
+                  <p style="font-size:11px;color:var(--muted);margin:2px 0 0;line-height:1.5">Masuk ke mode pendamping untuk mengelola listing dan booking atas nama host binaan.</p>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start">
+                <div style="width:24px;height:24px;background:#e8f0ff;color:#1565c0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</div>
+                <div>
+                  <strong style="font-size:12px;color:var(--text)">Lihat Bagi Hasil</strong>
+                  <p style="font-size:11px;color:var(--muted);margin:2px 0 0;line-height:1.5">Pantau komisi 15% Anda di <em>Earnings</em> dari setiap booking host binaan yang berhasil.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tips -->
+          <div style="background:#f0f7ff;border-radius:12px;padding:14px;margin-top:12px;border:1px solid #d0e4ff">
+            <h4 style="font-size:12px;color:#1565c0;margin:0 0 6px;display:flex;align-items:center;gap:6px">💡 Tips Penting</h4>
+            <ul style="font-size:11px;color:#3a5a8a;line-height:1.6;margin:0;padding-left:18px">
+              <li>Semua pembayaran dilakukan <strong>langsung ke warga lokal</strong> — tidak ada perantara.</li>
+              <li>Gunakan <strong>fitur Saved</strong> (♡) untuk menyimpan pengalaman favorit.</li>
+              <li>Hubungi host melalui tombol <strong>Hubungi Host</strong> di halaman booking.</li>
+              <li>Ganti bahasa aplikasi di <strong>Profil → Language</strong>.</li>
+            </ul>
+          </div>
+
+          <button
+            onclick="closeHowToUse()"
+            class="btn btn-primary btn-block"
+            style="margin-top:16px;padding:13px">
+            Mengerti, Mulai Jelajahi!
+          </button>
+        </div>
+      </div>
+
+      <!-- Add listing modal -->
       <div
         class="modal"
         id="experienceModal"
@@ -1016,75 +1403,161 @@
         <div class="sheet">
           <div class="handle"></div>
           <div class="sheet-head">
-            <h2>Add Experience</h2>
+            <h2 id="modalAddTitle">Add</h2>
             <button class="close" onclick="closeExperienceForm()">×</button>
           </div>
-          <p style="font-size: 11px; color: var(--muted); line-height: 1.6">
-            Create a bookable local experience for travelers.
+          <p style="font-size: 11px; color: var(--muted); line-height: 1.6; margin-bottom: 8px">
+            Pilih kategori listing yang ingin Anda tambahkan dan lengkapi rinciannya.
           </p>
+
+          <!-- Category Selector Grid -->
+          <input type="hidden" id="expCategoryType" value="pengalaman" />
+          <select id="expCategory" style="display: none">
+            <option value="Local Experience">Local Experience</option>
+            <option value="Destination">Destination</option>
+            <option value="Kuliner Khas">Kuliner Khas</option>
+            <option value="Usaha Lokal">Usaha Lokal</option>
+          </select>
+
+          <div class="category-picker-grid">
+            <button type="button" class="cat-picker-btn active" data-cat-type="pengalaman" onclick="selectAddCategory('pengalaman')">
+              <div class="cat-top">
+                <span class="cat-icon">🤝</span>
+                <strong>Pengalaman</strong>
+              </div>
+              <span>Tur & aktivitas lokal</span>
+            </button>
+            <button type="button" class="cat-picker-btn" data-cat-type="wisata" onclick="selectAddCategory('wisata')">
+              <div class="cat-top">
+                <span class="cat-icon">📍</span>
+                <strong>Wisata</strong>
+              </div>
+              <span>Spot alam & budaya</span>
+            </button>
+            <button type="button" class="cat-picker-btn" data-cat-type="kuliner" onclick="selectAddCategory('kuliner')">
+              <div class="cat-top">
+                <span class="cat-icon">🍽️</span>
+                <strong>Kuliner</strong>
+              </div>
+              <span>Warung & kafe lokal</span>
+            </button>
+            <button type="button" class="cat-picker-btn" data-cat-type="usaha" onclick="selectAddCategory('usaha')">
+              <div class="cat-top">
+                <strong>Usaha Lokal</strong>
+              </div>
+              <span>Kerajinan & oleh-oleh</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Info Banner -->
+          <div id="catInfoBanner" class="cat-info-banner">
+            <span>🤝</span>
+            <div><strong>Pengalaman Lokal:</strong> Aktivitas berbayar yang dipandu langsung oleh host lokal dan dapat dibooking oleh wisatawan.</div>
+          </div>
+
           <div class="form-grid">
             <div class="form-group full">
-              <label>EXPERIENCE NAME</label
-              ><input
+              <label id="lblExpTitle">NAMA PENGALAMAN / TUR</label>
+              <input
                 id="expTitle"
                 class="field"
                 type="text"
-                placeholder="e.g. Sasak Cooking with Grandma" />
+                placeholder="e.g. Menenun Kain Songket Sasak Tradisional" />
             </div>
-            <div class="form-group">
-              <label>CATEGORY</label
-              <select id="expCategory" class="field">
-                <option>Local Experience</option>
-                <option>Destination</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>PRICE / PERSON</label
-              ><input
+
+            <div class="form-group" id="grpExpPrice">
+              <label id="lblExpPrice">HARGA / ORANG (RP)</label>
+              <input
                 id="expPrice"
                 class="field"
                 type="number"
                 min="0"
-                placeholder="300000" />
+                placeholder="320000" />
+              <small id="hintExpPrice" style="font-size: 9px; color: var(--muted); display: block; margin-top: 4px">Tarif per wisatawan untuk booking langsung</small>
             </div>
-            <div class="form-group">
-              <label>LOCATION</label
-              ><input
-                id="expLocation"
-                class="field"
-                type="text"
-                placeholder="Sade Village" />
-            </div>
-            <div class="form-group">
-              <label>DURATION</label
-              ><input
+
+            <div class="form-group" id="grpExpDuration">
+              <label id="lblExpDuration">DURASI AKTIVITAS</label>
+              <input
                 id="expDuration"
                 class="field"
                 type="text"
-                placeholder="3 hours" />
+                placeholder="e.g. 2.5 jam" />
             </div>
+
+            <div class="form-group full" id="grpExpLocation">
+              <label id="lblExpLocation">LOKASI / DESA</label>
+              <input
+                id="expLocation"
+                class="field"
+                type="text"
+                placeholder="e.g. Desa Adat Sade, Lombok Tengah" />
+            </div>
+
+            <div class="form-group full" id="grpExpMaps" style="display: none">
+              <label id="lblExpMaps">LINK GOOGLE MAPS (UNTUK NAVIGASI)</label>
+              <input
+                id="expMapsUrl"
+                class="field"
+                type="url"
+                placeholder="https://maps.google.com/?query=..." />
+              <small style="font-size: 9px; color: var(--muted); display: block; margin-top: 4px">Wisatawan dapat membuka rute langsung ke lokasi lewat Google Maps</small>
+            </div>
+
+            <div class="form-group full" id="grpExpHighlights">
+              <label id="lblExpHighlights">HIGHLIGHT AKTIVITAS (PISAHKAN KOMA / ENTER)</label>
+              <textarea
+                id="expHighlights"
+                class="field"
+                style="height: 60px; padding-top: 8px; resize: none"
+                placeholder="e.g. Mencoba alat tenun tradisional, Membuat motif Sasak, Bawa pulang hasil karya"></textarea>
+            </div>
+
+            <div class="form-group full" id="grpExpMenu" style="display: none">
+              <label id="lblExpMenu">DAFTAR MENU & HARGA (1 PER BARIS: MENU: HARGA)</label>
+              <textarea
+                id="expMenu"
+                class="field"
+                style="height: 75px; padding-top: 8px; resize: none"
+                placeholder="Ayam Taliwang Bakar: 45000&#10;Plecing Kangkung: 15000&#10;Es Kelapa Muda: 12000"></textarea>
+              <small style="font-size: 9px; color: var(--muted); display: block; margin-top: 4px">Format: Nama Menu: Harga (contoh: Ayam Taliwang: 45000)</small>
+            </div>
+
+            <div class="form-group full" id="grpExpProducts" style="display: none">
+              <label id="lblExpProducts">KATALOG PRODUK & HARGA (1 PER BARIS: PRODUK: HARGA)</label>
+              <textarea
+                id="expProducts"
+                class="field"
+                style="height: 75px; padding-top: 8px; resize: none"
+                placeholder="Kain Tenun Sutra: 250000&#10;Selendang Tenun Sasak: 120000&#10;Tas Anyaman Etnik: 75000"></textarea>
+              <small style="font-size: 9px; color: var(--muted); display: block; margin-top: 4px">Format: Nama Produk: Harga (contoh: Kain Tenun: 250000)</small>
+            </div>
+
             <div class="form-group full">
-              <label>IMAGE URL</label
-              ><input
+              <label id="lblExpImage">URL FOTO / GAMBAR UTAMA</label>
+              <input
                 id="expImage"
                 class="field"
                 type="url"
-                placeholder="https://images.unsplash.com/..." />
+                placeholder="https://images.unsplash.com/... (Kosongkan untuk foto default)" />
             </div>
+
             <div class="form-group full">
-              <label>DESCRIPTION / MY STORY</label
-              ><textarea
+              <label id="lblExpStory">KISAH & PENGALAMAN HOST</label>
+              <textarea
                 id="expStory"
                 class="field"
-                style="height: 95px; padding-top: 12px; resize: none"
-                placeholder="Tell travelers what makes your experience special..."></textarea>
+                style="height: 85px; padding-top: 10px; resize: none"
+                placeholder="Ceritakan keunikan aktivitas dan apa yang akan dinikmati wisatawan..."></textarea>
             </div>
           </div>
+
           <button
+            id="btnSubmitExp"
             class="btn btn-primary btn-block"
             style="margin-top: 14px"
             onclick="createExperience()">
-            Publish Experience
+            Publikasikan Pengalaman
           </button>
         </div>
       </div>
@@ -1150,6 +1623,200 @@
         </div>
       </div>
 
+      <!-- Guide Hire Modal (2-Step) -->
+      <div
+        class="modal"
+        id="guideModal"
+        onclick="if(event.target===this)closeGuideModal()">
+        <div class="sheet" style="max-height:92dvh;overflow-y:auto">
+          <div class="handle"></div>
+
+          <!-- STEP 1: Pilih Guide -->
+          <div id="guideStep1">
+            <div class="sheet-head">
+              <div>
+                <span style="font-size:9px;color:#c8961e;font-weight:800;letter-spacing:.6px;text-transform:uppercase">Sewa Guide Lokal</span>
+                <h2 style="margin:2px 0 0">Pilih Guide Anda</h2>
+              </div>
+              <button class="close" onclick="closeGuideModal()">×</button>
+            </div>
+            <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:14px">
+              Pilih guide lokal berpengalaman untuk menemani wisata Anda ke <strong id="guideDestName">destinasi ini</strong>.
+            </p>
+            <div id="guideListContainer" style="display:flex;flex-direction:column;gap:10px">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- STEP 2: Isi Detail Booking -->
+          <div id="guideStep2" style="display:none">
+            <div class="sheet-head">
+              <div>
+                <span style="font-size:9px;color:#c8961e;font-weight:800;letter-spacing:.6px;text-transform:uppercase">Detail Pemesanan</span>
+                <h2 style="margin:2px 0 0">Konfirmasi Guide</h2>
+              </div>
+              <button class="close" onclick="closeGuideModal()">×</button>
+            </div>
+
+            <!-- Selected Guide Card -->
+            <div id="selectedGuidePreview" style="display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#fffbf0,#fff8e6);border:1px solid #f0d98a;border-radius:12px;padding:12px;margin-bottom:16px">
+              <!-- Filled by JS -->
+            </div>
+
+            <button onclick="backToGuideList()" style="background:none;border:none;color:#c8961e;font-size:11px;font-weight:600;cursor:pointer;margin-bottom:12px;padding:0;display:flex;align-items:center;gap:4px">
+              ← Ganti Guide
+            </button>
+
+            <div class="form-group">
+              <label for="guideName">NAMA TRAVELER</label>
+              <input id="guideName" class="field" type="text" placeholder="cth. Fauzan Hari">
+            </div>
+            <div class="form-group">
+              <label for="guidePhone">NOMOR TELEPON / WA</label>
+              <input id="guidePhone" class="field" type="tel" placeholder="cth. 0812-3456-7890">
+            </div>
+            <div class="form-group">
+              <label for="guideDate">TANGGAL KUNJUNGAN</label>
+              <input id="guideDate" class="field" type="date">
+            </div>
+            <div class="form-group">
+              <label for="guideHours">DURASI (JAM)</label>
+              <select id="guideHours" class="field" onchange="updateGuideSummary()">
+                <option value="2">2 jam</option>
+                <option value="3" selected>3 jam</option>
+                <option value="4">4 jam</option>
+                <option value="5">5 jam</option>
+                <option value="6">Seharian (6 jam)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="guideParty">JUMLAH ORANG</label>
+              <select id="guideParty" class="field" onchange="updateGuideSummary()">
+                <option value="1">1 orang</option>
+                <option value="2" selected>2 orang</option>
+                <option value="3">3 orang</option>
+                <option value="4">4 orang</option>
+                <option value="5">5+ orang</option>
+              </select>
+            </div>
+
+            <!-- Price Summary -->
+            <div id="guidePriceSummary" style="background:#f9f5ee;border-radius:12px;padding:12px;margin-bottom:14px">
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px">
+                <span>Tarif guide</span><span id="sumGuideRate">—</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px">
+                <span>Durasi</span><span id="sumGuideDuration">3 jam</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:var(--text);border-top:1px solid #e8e0d0;padding-top:8px;margin-top:8px">
+                <span>Estimasi Total</span><span id="sumGuideTotal" style="color:#c8961e">—</span>
+              </div>
+              <p style="font-size:9px;color:var(--muted);margin:6px 0 0">Pembayaran langsung ke guide lokal. Harga dapat berubah sesuai kesepakatan.</p>
+            </div>
+
+            <button
+              onclick="confirmGuideRequest()"
+              style="width:100%;background:linear-gradient(135deg,#c8961e,#e8b830);color:#fff;font-weight:700;font-size:13px;padding:14px;border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(200,150,30,0.35)">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-4.2 3.2-6.3 8-6.3s7.3 2.1 8 6.3"/></svg>
+              Kirim Permintaan Guide
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connector Register Host Modal -->
+      <div
+        class="modal"
+        id="connectorRegisterHostModal"
+        onclick="if(event.target===this)closeRegisterHostModal()">
+        <div class="sheet" style="max-height: 90dvh">
+          <div class="handle"></div>
+          <div class="sheet-head">
+            <div>
+              <span style="font-size: 8.5px; color: var(--accent); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase">
+                Youth Connector Assistance
+              </span>
+              <h2 style="margin: 2px 0 0">Daftarkan Host Baru</h2>
+            </div>
+            <button class="close" onclick="closeRegisterHostModal()">×</button>
+          </div>
+          <p style="font-size: 11px; color: var(--muted); line-height: 1.6; margin-bottom: 14px">
+            Daftarkan tetua, pengrajin, atau nelayan lokal yang belum memiliki akses digital. Anda akan menjadi pendamping pengelola akun ini.
+          </p>
+
+          <div class="form-grid">
+            <div class="form-group full">
+              <label>NAMA LENGKAP HOST</label>
+              <input id="regHostName" class="field" type="text" placeholder="Contoh: Amaq Senah / Ibu Aminah" />
+            </div>
+            <div class="form-group">
+              <label>USIA (TAHUN)</label>
+              <input id="regHostAge" class="field" type="number" placeholder="Contoh: 54" />
+            </div>
+            <div class="form-group">
+              <label>NO. TELEPON / HP</label>
+              <input id="regHostPhone" class="field" type="tel" placeholder="0819-xxxx-xxxx" />
+            </div>
+            <div class="form-group full">
+              <label>DESA / DUSUN / KABUPATEN</label>
+              <input id="regHostVillage" class="field" type="text" placeholder="Contoh: Desa Adat Sukarara, Lombok Tengah" />
+            </div>
+            <div class="form-group full">
+              <label>KEAHLIAN / PROFESI TRADISIONAL</label>
+              <input id="regHostOccupation" class="field" type="text" placeholder="Contoh: Penenun Songket Tradisional Sutra" />
+            </div>
+
+            <div class="form-group full" style="border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 4px">
+              <strong style="font-size: 11px; color: var(--text)">Listing Pengalaman Perdana Host:</strong>
+            </div>
+
+            <div class="form-group full">
+              <label>JUDUL PENGALAMAN</label>
+              <input id="regHostExpTitle" class="field" type="text" placeholder="Contoh: Workshop Tenun Songket Asli Bersama Tetua" />
+            </div>
+            <div class="form-group">
+              <label>KATEGORI</label>
+              <select id="regHostExpCategory" class="field">
+                <option value="Pengalaman Lokal">Pengalaman Lokal</option>
+                <option value="Destinasi Wisata">Destinasi Wisata</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>TARIF PER ORANG (RP)</label>
+              <input id="regHostExpPrice" class="field" type="number" placeholder="Contoh: 300000" />
+            </div>
+            <div class="form-group full">
+              <label>DURASI KEGIATAN</label>
+              <input id="regHostExpDuration" class="field" type="text" placeholder="Contoh: 2.5 jam" />
+            </div>
+            <div class="form-group full">
+              <label>CERITA / DESKRIPSI PENGALAMAN</label>
+              <textarea
+                id="regHostExpStory"
+                class="field"
+                style="height: 85px; padding-top: 10px; resize: none"
+                placeholder="Ceritakan keistimewaan aktivitas budaya ini kepada traveler..."></textarea>
+            </div>
+          </div>
+
+          <div style="background: #FAF7F4; border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin: 12px 0">
+            <label style="display: flex; gap: 8px; align-items: flex-start; font-size: 10.5px; color: #554D47; cursor: pointer">
+              <input id="regHostConsent" type="checkbox" style="margin-top: 2px" />
+              <span>
+                <strong>Konfirmasi Mandat Pendampingan:</strong> Saya menyatakan bahwa calon host telah memberikan persetujuan lisan/tertulis bagi saya selaku Youth Local Connector untuk mendaftarkan dan mengelola akun digital ini atas nama beliau.
+              </span>
+            </label>
+          </div>
+
+          <button
+            class="btn btn-primary btn-block"
+            style="margin-top: 10px"
+            onclick="submitRegisterHostByConnector()">
+            Simpan & Terbitkan Akun Host
+          </button>
+        </div>
+      </div>
+
       <div class="toast" id="toast"></div>
     </div>
 
@@ -1158,6 +1825,7 @@
     <script src="js/utils.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/navigation.js"></script>
+    <script src="js/connector.js"></script>
     <script src="js/experiences.js"></script>
     <script src="js/bookings.js"></script>
     <script src="js/host.js"></script>
